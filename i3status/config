@@ -15,6 +15,7 @@ order += "battery 0"
 order += "cpu_temperature 0"
 order += "cpu_usage"
 order += "load"
+order += "volume master"
 order += "tztime local"
 
 wireless wlp2s0 {
@@ -67,7 +68,7 @@ cpu_temperature 0 {
 }
 
 disk "/" {
-        format = "%%avail / %total"
+        format = "%avail / %total"
 }
 
 volume master {

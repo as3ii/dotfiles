@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+font pango:Noto Mono 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -204,24 +204,24 @@ bindsym XF86AudioLowerVolume exec "amixer set Master 5%-; notify-send -u low -t 
 bindsym XF86AudioMute exec "amixer set Master toggle; notify-send -u low -t 500 'muted/unmuted'"
 
 #Player control
-bindsym --release $mod+space exec --no-startup-id playerctl play-pause
+bindsym --release mod1+space exec --no-startup-id playerctl play-pause
 bindsym --release mod1+Left exec --no-startup-id playerctl previous
 bindsym --release mod1+Right exec --no-startup-id playerctl next
 
 #ctrl+key sym
-bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+x
-bindsym --release $mod+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
-bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+v
-bindsym --release $mod+z exec --no-startup-id xdotool key --clearmodifiers ctrl+z
-bindsym --release $mod+a exec --no-startup-id xdotool key --clearmodifiers ctrl+a
+#bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+x
+#bindsym --release $mod+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
+#bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+#bindsym --release $mod+z exec --no-startup-id xdotool key --clearmodifiers ctrl+z
+#bindsym --release $mod+a exec --no-startup-id xdotool key --clearmodifiers ctrl+a
 
 #screenshot
 bindsym --release Print exec --no-startup-id flameshot gui
 
 #shutdown and reboot shortcut
-bindsym --release $mod+Shift+k exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to shutdown?' -b 'Yes' 'systemctl poweroff'"
+bindsym --release $mod+Shift+k exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to shutdown?' -b 'Yes' 'systemctl poweroff -i'"
 bindsym --release $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to reboot?' -b 'Yes' 'systemctl reboot'"
-bindsym --release $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend'"
+bindsym --release $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
 bindsym --release $mod+Shift+l exec --no-startup-id "/home/as3ii/.script/DPMS.sh"
 
 #start dunst
@@ -233,9 +233,9 @@ exec_always compton --config ~/.config/compton.conf -b
 #start nm-appplet
 exec_always nm-applet
 
-exec --no-startup-id xrandr --output HDMI-1 --above eDP-1
-exec --no-startup-id xrandr --output eDP-1 --primary
-exec --no-startup-id numlockx on
+exec --no-startup-id "xrandr --output HDMI-1 --above eDP-1"
+exec --no-startup-id "xrandr --output eDP-1 --primary"
+exec --no-startup-id "numlockx on"
 
 # create workspaces
 exec --no-startup-id i3-msg 'workspace $ws4; exec telegram-desktop'

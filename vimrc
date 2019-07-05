@@ -123,6 +123,9 @@ nnoremap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
 inoremap <F2> <ESC>:w<CR>i
 
+" toggle tagbar
+nmap <F8> :TagbarToggle<CR>
+
 augroup rustbindings
     autocmd! rustbindings
     " cargo check
@@ -164,6 +167,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'bronson/vim-trailing-whitespace' " fix whitespace error with :FixWhitespace
 Plugin 'elzr/vim-json'
 Plugin 'fatih/vim-go'
+Plugin 'majutsushi/tagbar'
 " All of your Plugins must be added before the following line
 call vundle#end()
 filetype plugin indent on

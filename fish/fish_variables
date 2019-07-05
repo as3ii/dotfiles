@@ -2,6 +2,8 @@
 # VERSION: 3.0
 SETUVAR --export BROWSER:firefox
 SETUVAR --export EDITOR:vim
+SETUVAR --export GTK_THEME:Adwaita\x3adark
+SETUVAR --export QT_QPA_PLATFORMTHEME:qt5ct
 SETUVAR __fish_classic_git_prompt_initialized:\x1d
 SETUVAR __fish_init_2_39_8:\x1d
 SETUVAR __fish_init_2_3_0:\x1d
