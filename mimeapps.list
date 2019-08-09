@@ -1,6 +1,6 @@
 [Default Applications]
 application/x-ace;application/x-alz=org.gnome.FileRoller.desktop
-application/x-gnome-saved-search=dde-file-manager.desktop
+application/x-gnome-saved-search=nemo.desktop
 image/webp=firefox.desktop
 application/xhtml+xml=firefox.desktop
 application/rss+xml=firefox.desktop
@@ -66,6 +66,7 @@ video/x-theora=vlc.desktop
 video/quicktime=vlc.desktop
 application/vnd.rn-realmedia=vlc.desktop
 video/x-ms-wmv=vlc.desktop
+inode/directory=nemo.desktop
 
 [Added Associations]
 application/x-ace;application/x-alz=org.gnome.FileRoller.desktop;
