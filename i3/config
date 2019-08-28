@@ -245,7 +245,7 @@ exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e htop'
 exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e nmon'
 exec --no-startup-id i3-msg 'workspace $ws6; exec spotify'
 exec --no-startup-id i3-msg 'workspace $ws8; exec konsole -e alsamixer'
-#exec --no-startup-id i3-msg 'workspace $ws7; exec vlc'
+exec --no-startup-id i3-msg 'workspace $ws10; exec run_keybase; exec bitwarden-desktop'
 #exec --no-startup-id i3-msg 'workspace $ws5; exec foobar2000'
 #return to first workspace
 exec --no-startup-id i3-msg 'workspace $ws1'

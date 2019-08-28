@@ -1,10 +1,13 @@
-aurman/
+Bitwarden/
+calibre/
+configstore/
 dconf/
 Dharkael/
 enchant/
 gtk-2.0/
 hexchat/
 kdeglobals
+keybase/
 konsolerc
 menus/
 obs-studio/
