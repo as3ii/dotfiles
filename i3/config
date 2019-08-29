@@ -140,7 +140,8 @@ assign [class="konsole" title="htop"] $ws9
 assign [class="konsole" title="nmon"] $ws9
 assign [class="vlc"] $ws7
 assign [class="TelegramDesktop"] $ws4
-assign [class="foobar2000.exe"] $ws5
+assign [class="Bitwarden"] $ws10
+assign [class="Keybase"] $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
