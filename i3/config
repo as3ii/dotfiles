@@ -228,6 +228,9 @@ bindsym --release $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Do
 bindsym --release $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
 bindsym --release $mod+Shift+l exec --no-startup-id "/home/as3ii/.script/DPMS.sh"
 
+#screencast shortcut
+bindsym --release $mod+o exec "/home/as3ii/.script/screencast"
+
 #start dunst
 exec_always dunst -config /home/as3ii/.config/dunst/dunstrc
 
