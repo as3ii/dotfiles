@@ -13,3 +13,5 @@ alias la="exa --across --classify --all"
 alias sl="ls"
 alias mount_win="sudo mount /dev/nvme0n1p5 /mnt/win"
 #alias cdl="cd $0; ls"
+
+export GTK2_RC_FILES=/usr/share/themes/Default/gtk-2.0-key/gtkrc

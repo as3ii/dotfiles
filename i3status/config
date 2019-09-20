@@ -74,6 +74,6 @@ disk "/" {
 volume master {
 	format = "♪: %volume"
     format_muted = "♪: muted"
-    device = "pulse"
+    device = "default"
     #mixer = "Master"
 }

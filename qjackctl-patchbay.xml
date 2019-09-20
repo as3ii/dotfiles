@@ -1,0 +1,37 @@
+<!DOCTYPE patchbay>
+<patchbay version="0.5.9" name="qjackctl-patchbay">
+ <output-sockets>
+  <socket exclusive="off" client="AudioIPC Server" name="AudioIPC Server 1" type="jack-audio">
+   <plug>AudioCallbackDriver_0_out_0</plug>
+   <plug>AudioCallbackDriver_0_out_1</plug>
+   <plug>AudioCallbackDriver_0_out_2</plug>
+   <plug>AudioCallbackDriver_0_out_3</plug>
+   <plug>AudioCallbackDriver_0_out_4</plug>
+   <plug>AudioCallbackDriver_0_out_5</plug>
+   <plug>AudioCallbackDriver_0_out_6</plug>
+   <plug>AudioCallbackDriver_0_out_7</plug>
+   <plug>AudioStream_1_out_0</plug>
+   <plug>AudioStream_1_out_1</plug>
+  </socket>
+  <socket exclusive="off" client="vlc" name="vlc 1" type="jack-audio">
+   <plug>vlc_out_1</plug>
+   <plug>vlc_out_2</plug>
+   <plug>vlc_out_3</plug>
+   <plug>vlc_out_4</plug>
+   <plug>vlc_out_5</plug>
+   <plug>vlc_out_6</plug>
+  </socket>
+ </output-sockets>
+ <input-sockets>
+  <socket exclusive="off" client="system" name="system 1" type="jack-audio">
+   <plug>playback_1</plug>
+   <plug>playback_2</plug>
+  </socket>
+ </input-sockets>
+ <slots/>
+ <cables>
+  <cable output="AudioIPC Server 1" input="system 1" type="jack-audio"/>
+  <cable output="vlc 1" input="system 1" type="jack-audio"/>
+ </cables>
+</patchbay>
+

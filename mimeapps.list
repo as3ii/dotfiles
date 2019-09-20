@@ -50,6 +50,9 @@ video/x-ms-wmv=vlc.desktop
 inode/directory=nemo.desktop
 text/plain=vim.desktop
 audio/x-mpegurl=vlc.desktop
+application/pdf=firefox.desktop
+image/jpeg=nomacs.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=desktopeditors.desktop
 
 [Added Associations]
 application/x-ace;application/x-alz=org.gnome.FileRoller.desktop;
@@ -98,3 +101,6 @@ video/x-ms-wmv=vlc.desktop;
 text/plain=vim.desktop;
 audio/x-mpegurl=vlc.desktop;
 inode/directory=vlc.desktop;
+application/pdf=desktopeditors.desktop;firefox.desktop;
+image/jpeg=nomacs.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=desktopeditors.desktop;
