@@ -27,7 +27,7 @@ font pango:Noto Mono 11
 # font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+#floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
@@ -44,10 +44,10 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -72,10 +72,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+#bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+#bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -101,11 +101,11 @@ bindsym $mod+Shift+space floating toggle
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
 set $ws2 "2-firefox"
-set $ws3 "3-TorBrowser"
+set $ws3 "3"
 set $ws4 "4-telegram"
 set $ws5 "5-vlc"
 set $ws6 "6-spotify"
-set $ws7 "7-torrent"
+set $ws7 "7"
 set $ws8 "8-mixer"
 set $ws9 "9-htop"
 set $ws10 "10"
@@ -132,19 +132,19 @@ workspace $ws7 output primary
 workspace $ws8 output primary
 workspace $ws9 output primary
 
+# xprop -> WM_CLASS(STRING) (second argument)
 # default workspace
 assign [class="firefox"] $ws2
+assign [class="Tor Browser"] $ws3
+assign [class="TelegramDesktop"] $ws4
+assign [class="vlc"] $ws5
 for_window [title="Spotify"] move workspace number $ws6
+assign [class="qBittorrent"] $ws7
 assign [class="konsole" title="alsamixer"] $ws8
 assign [class="konsole" title="htop"] $ws9
-assign [class="konsole" title="env"] $ws9
-assign [class="vlc"] $ws5
-assign [class="TelegramDesktop"] $ws4
+assign [class="konsole" title="nmon"] $ws9
 assign [class="Bitwarden"] $ws10
 assign [class="Keybase"] $ws10
-assign [class="qBittorrent"] $ws7
-assign [class="Tor Browser"] $ws3
-assign [class="qjackctl"] $ws8
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -159,7 +159,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+#bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -173,10 +173,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        #bindsym j resize shrink width 10 px or 10 ppt
+        #bindsym k resize grow height 10 px or 10 ppt
+        #bindsym l resize shrink height 10 px or 10 ppt
+        #bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -209,9 +209,9 @@ bindsym XF86AudioLowerVolume exec "amixer set Master 5%-; notify-send -u low -t 
 bindsym XF86AudioMute exec "amixer set Master toggle; notify-send -u low -t 500 'muted/unmuted'"
 
 #Player control
-bindsym --release mod1+space exec --no-startup-id playerctl play-pause
-bindsym --release mod1+Left exec --no-startup-id playerctl previous
-bindsym --release mod1+Right exec --no-startup-id playerctl next
+bindsym mod1+space exec --no-startup-id playerctl play-pause
+bindsym mod1+Left exec --no-startup-id playerctl previous
+bindsym mod1+Right exec --no-startup-id playerctl next
 
 #ctrl+key sym
 bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+x
@@ -220,17 +220,24 @@ bindsym --release $mod+v exec --no-startup-id xdotool key --clearmodifiers ctrl+
 bindsym --release $mod+z exec --no-startup-id xdotool key --clearmodifiers ctrl+z
 bindsym --release $mod+a exec --no-startup-id xdotool key --clearmodifiers ctrl+a
 
+bindsym --release $mod+Shift+c exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+c
+bindsym --release $mod+Shift+v exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+v
+
+bindsym --release $mod+Mod5 exec --no-startup-id xdotool key --clearmodiviers ctrl+alt
+bindsym --release $mod+Mod5+f exec --no-startup-id xdotool key --clearmodiviers ctrl+alt+f
+
+
 #screenshot
-bindsym --release Print exec --no-startup-id flameshot gui
+bindsym Print exec --no-startup-id flameshot gui
 
 #shutdown and reboot shortcut
-bindsym --release $mod+Shift+k exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to shutdown?' -b 'Yes' 'systemctl poweroff -i'"
-bindsym --release $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to reboot?' -b 'Yes' 'systemctl reboot'"
-bindsym --release $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
-bindsym --release $mod+Shift+l exec --no-startup-id "/home/as3ii/.script/DPMS.sh"
+bindsym $mod+Shift+k exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to shutdown?' -b 'Yes' 'systemctl poweroff -i'"
+bindsym $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to reboot?' -b 'Yes' 'systemctl reboot'"
+bindsym $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
+bindsym $mod+Shift+l exec --no-startup-id "/home/as3ii/.script/DPMS.sh"
 
 #screencast shortcut
-bindsym --release $mod+o exec "/home/as3ii/.script/screencast"
+bindsym $mod+o exec "/home/as3ii/.script/screencast"
 
 #start dunst
 exec_always dunst -config /home/as3ii/.config/dunst/dunstrc
@@ -241,6 +248,11 @@ exec_always compton --config ~/.config/compton.conf -b
 #start nm-appplet
 exec_always nm-applet
 
+#start aa-notify
+exec --no-startup-id "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log"
+
+exec --no-startup-id "firewall-applet"
+
 exec --no-startup-id "xrandr --output HDMI-1 --above eDP-1"
 exec --no-startup-id "xrandr --output eDP-1 --primary"
 exec --no-startup-id "numlockx on"
@@ -249,17 +261,15 @@ exec --no-startup-id "numlockx on"
 exec --no-startup-id i3-msg 'workspace $ws4; exec telegram-desktop'
 exec --no-startup-id i3-msg 'workspace $ws2; exec firefox'
 exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e htop'
-exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e "env NMON=cdnmt nmon"'
+exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e nmon'
 exec --no-startup-id i3-msg 'workspace $ws6; exec spotify'
-exec --no-startup-id i3-msg 'workspace $ws8; exec konsole -e alsamixer; exec qjackctl'
+exec --no-startup-id i3-msg 'workspace $ws8; exec konsole -e alsamixer'
 exec --no-startup-id i3-msg 'workspace $ws10; exec run_keybase; exec bitwarden-desktop'
-#exec --no-startup-id i3-msg 'workspace $ws5; exec foobar2000'
 #return to first workspace
 exec --no-startup-id i3-msg 'workspace $ws1'
 
 #start wallpaper
 exec --no-startup-id "/home/as3ii/.script/wallpaper.sh"
-#exec --no-startup-id nitrogen --restore
 
 exec setxkbmap -layout it
 

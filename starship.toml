@@ -1,0 +1,56 @@
+# Print newline at the start of the prompt
+add_newline = true
+
+# replace > with ->
+[character]
+symbol = "➜"
+error_symbol = "✗"
+use_symbol_for_status = true
+
+
+[battery]
+full_symbol = "☻ "
+charging_symbol = "⚡️"
+discharging_symbol = "🔋"
+disabled = false
+
+[[battery.display]]
+threshold = 15
+style = "bold red"
+
+[[battery.display]]
+threshold = 50
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 100
+style = "bold green"
+
+
+[memory_usage]
+show_percentage = false
+show_swap = true
+threshold = -1
+symbol = "🔀 "
+style = "bold dimmed green"
+disabled = false
+
+
+[git_status]
+show_sync_count = true
+
+
+[kubernetes]
+disabled = false
+
+
+[time]
+disabled = false
+
+
+[username]
+show_always = true
+
+
+[package]
+disabled = true

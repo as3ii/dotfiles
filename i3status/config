@@ -5,13 +5,12 @@ general {
 }
 
 order += "ipv6"
-order += "run_watch DHCP"
-order += "run_watch VPNC"
-#order += "path_exists VPN"
+#order += "run_watch DHCP"
+order += "read_file VPN0"
 order += "wireless wlp2s0"
 order += "ethernet enp3s0"
 order += "disk /"
-order += "battery 0"
+order += "battery all"
 order += "cpu_temperature 0"
 order += "cpu_usage"
 order += "load"
@@ -29,15 +28,15 @@ ethernet enp3s0 {
         format_down = "E: down"
 }
 
-battery 0 {
-        format = "%status %percentage %remaining"
+battery all {
+        format = "%status%percentage %remaining"
         format_down = "No battery"
-        status_chr = "CHR"
-        status_bat = "BAT"
-        status_unk = "UNK"
-        status_full = "FULL"
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "?"
+        status_full = "☻"
         path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 10
+        low_threshold = 15
 		hide_seconds = true
 }
 
@@ -45,9 +44,10 @@ run_watch DHCP {
         pidfile = "/var/run/dhcpcd.pid"
 }
 
-path_exists VPN {
-        # path exists when a VPN tunnel launched by nmcli/nm-applet is active
-        path = "/proc/sys/net/ipv4/conf/tun0"
+read_file VPN0 {
+        path = "/sys/devices/virtual/net/vpn0/operstate"
+        format = "vpn: %content"
+        format_bad = "vpn: None"
 }
 
 tztime local {

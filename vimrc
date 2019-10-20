@@ -112,8 +112,8 @@ autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 " navigate split screen
 nnoremap <silent> <A-up> :wincmd k<CR>
 nnoremap <silent> <A-down> :wincmd j<CR>
-nnoremap <silent> <A-left> :wincmd h<CR>
-nnoremap <silent> <A-right> :wincmd l<CR>
+nnoremap <silent> <A-S-h> :wincmd h<CR>
+nnoremap <silent> <A-S-l> :wincmd l<CR>
 nnoremap <silent> <A-S-up> <C-w>K
 nnoremap <silent> <A-S-down> <C-w>J
 nnoremap <silent> <A-S-left> <C-w>H
