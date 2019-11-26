@@ -100,8 +100,8 @@ bindsym $mod+Shift+space floating toggle
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
-set $ws2 "2-firefox"
-set $ws3 "3"
+set $ws2 "2"
+set $ws3 "3-firefox"
 set $ws4 "4-telegram"
 set $ws5 "5-vlc"
 set $ws6 "6-spotify"
@@ -134,7 +134,7 @@ workspace $ws9 output primary
 
 # xprop -> WM_CLASS(STRING) (second argument)
 # default workspace
-assign [class="firefox"] $ws2
+assign [class="firefox"] $ws3
 assign [class="Tor Browser"] $ws3
 assign [class="TelegramDesktop"] $ws4
 assign [class="vlc"] $ws5
@@ -223,9 +223,10 @@ bindsym --release $mod+a exec --no-startup-id xdotool key --clearmodifiers ctrl+
 bindsym --release $mod+Shift+c exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+c
 bindsym --release $mod+Shift+v exec --no-startup-id xdotool key --clearmodifiers ctrl+shift+v
 
-bindsym --release $mod+Mod5 exec --no-startup-id xdotool key --clearmodiviers ctrl+alt
-bindsym --release $mod+Mod5+f exec --no-startup-id xdotool key --clearmodiviers ctrl+alt+f
+bindsym --release $mod+Mod1 exec --no-startup-id xdotool key --clearmodifiers ctrl+alt
+bindsym --release $mod+Mod1+f exec --no-startup-id xdotool key --clearmodifiers ctrl+alt+f
 
+bindsym --release Mod1+Return exec --no-startup-id xdotool key --clearmodifiers ctrl+Return
 
 #screenshot
 bindsym Print exec --no-startup-id flameshot gui
@@ -237,7 +238,7 @@ bindsym $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you reall
 bindsym $mod+Shift+l exec --no-startup-id "/home/as3ii/.script/DPMS.sh"
 
 #screencast shortcut
-bindsym $mod+o exec "/home/as3ii/.script/screencast"
+bindsym $mod+o+p exec "/home/as3ii/.script/screencast"
 
 #start dunst
 exec_always dunst -config /home/as3ii/.config/dunst/dunstrc
@@ -259,7 +260,7 @@ exec --no-startup-id "numlockx on"
 
 # create workspaces
 exec --no-startup-id i3-msg 'workspace $ws4; exec telegram-desktop'
-exec --no-startup-id i3-msg 'workspace $ws2; exec firefox'
+exec --no-startup-id i3-msg 'workspace $ws3; exec firefox'
 exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e htop'
 exec --no-startup-id i3-msg 'workspace $ws9; exec konsole -e nmon'
 exec --no-startup-id i3-msg 'workspace $ws6; exec spotify'
