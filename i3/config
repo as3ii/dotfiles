@@ -238,7 +238,7 @@ bindsym $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you reall
 bindsym $mod+Shift+l exec --no-startup-id "/home/as3ii/.script/DPMS.sh"
 
 #screencast shortcut
-bindsym $mod+o+p exec "/home/as3ii/.script/screencast"
+bindsym $mod+Shift+s exec "/home/as3ii/.script/screencast"
 
 #start dunst
 exec_always dunst -config /home/as3ii/.config/dunst/dunstrc
