@@ -8,6 +8,15 @@ error_symbol = "✗"
 use_symbol_for_status = true
 
 
+[cmd_duration]
+min_time = 500
+show_milliseconds = true
+
+
+[directory]
+truncate_length = 5
+
+
 [battery]
 full_symbol = "☻ "
 charging_symbol = "⚡️"
@@ -38,6 +47,7 @@ disabled = false
 
 [git_status]
 show_sync_count = true
+staged_count.enabled = true
 
 
 [kubernetes]
@@ -54,3 +64,4 @@ show_always = true
 
 [package]
 disabled = true
+

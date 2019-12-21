@@ -59,6 +59,9 @@ x-scheme-handler/spice=org.remmina.Remmina.desktop
 x-scheme-handler/vnc=org.remmina.Remmina.desktop
 x-scheme-handler/remmina=org.remmina.Remmina.desktop
 application/x-remmina=org.remmina.Remmina.desktop
+application/vnd.rar=org.gnome.FileRoller.desktop
+text/x-c++src=userapp-konsole-TG1ZB0.desktop
+text/x-chdr=userapp-konsole-TG1ZB0.desktop
 
 [Added Associations]
 application/x-ace;application/x-alz=org.gnome.FileRoller.desktop;
@@ -111,3 +114,6 @@ application/pdf=desktopeditors.desktop;firefox.desktop;llpp.desktop;
 image/jpeg=feh.desktop;llpp.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=desktopeditors.desktop;
 image/png=feh.desktop;
+application/vnd.rar=org.gnome.FileRoller.desktop;
+text/x-c++src=userapp-konsole-TG1ZB0.desktop;
+text/x-chdr=userapp-konsole-TG1ZB0.desktop;
