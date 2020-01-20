@@ -3,3 +3,5 @@ set window-title-home-tilde true
 set font monospace normal 12
 set guioptions shv
 
+map [normal] f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
