@@ -1,16 +1,21 @@
 Bitwarden/
 calibre/
+cef_user_data/
 configstore/
 dconf/
 Dharkael/
 enchant/
 firewall/
+GNU\ Radio/
 gtk-2.0/
+gtk-3.0/
 hexchat/
 kdeglobals
 keybase/
 Keybase/
+KindleComicConverter/
 konsolerc
+libvirt/*/
 menus/
 obs-studio/
 onlyoffice/
@@ -18,7 +23,6 @@ pulse/
 qBittorrent/
 QtProject.conf
 spotify/
-telegram-send.conf
 Trolltech.conf
 vlc/
 VirtualBox/
