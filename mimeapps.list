@@ -44,6 +44,7 @@ application/x-remmina=org.remmina.Remmina.desktop
 application/vnd.rar=org.gnome.FileRoller.desktop
 text/x-c++src=userapp-konsole-TG1ZB0.desktop
 text/x-chdr=userapp-konsole-TG1ZB0.desktop
+text/x-tex=userapp-konsole-TG1ZB0.desktop
 
 [Added Associations]
 application/x-ace;application/x-alz=org.gnome.FileRoller.desktop;
@@ -83,3 +84,4 @@ text/x-c++src=userapp-konsole-TG1ZB0.desktop;
 text/x-chdr=userapp-konsole-TG1ZB0.desktop;
 text/x-log=userapp-konsole-TG1ZB0.desktop;
 application/xml=userapp-konsole-TG1ZB0.desktop;
+text/x-tex=userapp-konsole-TG1ZB0.desktop;
