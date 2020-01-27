@@ -20,6 +20,11 @@ alias ls="exa --classify"
 alias ll="exa --classify --group --long --header --git"
 alias la="exa --classify --all"
 alias sl="ls"
+alias v="vim"
+alias gits="git status"
+alias gitc="git commit"
+alias gita="git add ."
+alias gitp="git push"
 alias mount_win="sudo mount /dev/nvme0n1p5 /mnt/win"
 
 eval $(starship init zsh)
