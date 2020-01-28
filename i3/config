@@ -247,7 +247,7 @@ bindsym $mod+Shift+s exec "~/.script/screencast"
 exec_always dunst -config ~/.config/dunst/dunstrc
 
 #start compton
-exec_always compton --config ~/.config/compton.conf -b
+exec_always picom --config ~/.config/picom.conf --daemon
 
 #start nm-appplet
 exec_always nm-applet
