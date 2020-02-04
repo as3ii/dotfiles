@@ -47,6 +47,19 @@ compinit
 
 # set fixed normal mode
 set -o emacs
+# Keybinding:
+autoload zkbd
+[[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]] && zkbd
+source ${ZDOTDIR:-$HOME}/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+[[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
+[[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
+[[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
+[[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
+[[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
+[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
+[[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
+[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
+[[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
 
 # Plugin manager
 source <(antibody init)
@@ -54,7 +67,7 @@ antibody bundle < ~/.zsh_plugins.txt
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # aliases
-alias tree="exa --header --classify --long --git --tree --level=3"
+alias tree="exa --tree --level=3"
 alias ls="exa --classify"
 alias ll="exa --classify --group --long --header --git"
 alias la="exa --classify --all"
