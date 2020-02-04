@@ -32,7 +32,7 @@ font pango:Noto Mono 12
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
 set $TERMINAL alacritty
-set $TERMINAL_C
+set $TERMINAL_C Alacritty
 bindsym $mod+Return exec $TERMINAL
 
 # kill focused window
@@ -267,11 +267,11 @@ exec --no-startup-id "numlockx on"
 # create workspaces
 exec --no-startup-id i3-msg 'workspace $ws4; exec telegram-desktop'
 exec --no-startup-id i3-msg 'workspace $ws3; exec firefox'
-exec --no-startup-id i3-msg 'workspace $ws9; exec $TERMINAL -e htop'
-exec --no-startup-id i3-msg 'workspace $ws9; exec $TERMINAL -e nmon'
+exec --no-startup-id i3-msg 'workspace $ws9; exec $TERMINAL -t htop -e htop'
+exec --no-startup-id i3-msg 'workspace $ws9; exec $TERMINAL -t nmon -e nmon'
 exec --no-startup-id i3-msg 'workspace $ws6; exec spotify'
 exec --no-startup-id i3-msg 'workspace $ws7; exec thunderbird'
-exec --no-startup-id i3-msg 'workspace $ws8; exec $TERMINAL -e alsamixer'
+exec --no-startup-id i3-msg 'workspace $ws8; exec $TERMINAL -t alsamixer -e alsamixer'
 exec --no-startup-id i3-msg 'workspace $ws10; exec run_keybase; exec bitwarden-desktop'
 #return to first workspace
 exec --no-startup-id i3-msg 'workspace $ws1'
