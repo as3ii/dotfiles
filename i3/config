@@ -31,7 +31,9 @@ font pango:Noto Mono 12
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec st
+set $TERMINAL alacritty
+set $TERMINAL_C
+bindsym $mod+Return exec $TERMINAL
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -103,12 +105,12 @@ set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3-firefox"
 set $ws4 "4-telegram"
-set $ws5 "5-vlc"
+set $ws5 "5"
 set $ws6 "6-spotify"
-set $ws7 "7"
+set $ws7 "7-mail"
 set $ws8 "8-mixer"
 set $ws9 "9-htop"
-set $ws10 "10"
+set $ws10 "10-key"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -139,10 +141,11 @@ assign [class="Tor Browser"] $ws3
 assign [class="TelegramDesktop"] $ws4
 assign [class="vlc"] $ws5
 for_window [title="Spotify"] move workspace number $ws6
-assign [class="qBittorrent"] $ws7
-assign [class="st" title="alsamixer"] $ws8
-assign [class="st" title="htop"] $ws9
-assign [class="st" title="nmon"] $ws9
+assign [class="qBittorrent"] $ws5
+assign [class="thunderbird"] $ws7
+assign [class=$TERMINAL_C title="alsamixer"] $ws8
+assign [class=$TERMINAL_C title="htop"] $ws9
+assign [class=$TERMINAL_C title="nmon"] $ws9
 assign [class="Bitwarden"] $ws10
 assign [class="Keybase"] $ws10
 
@@ -234,7 +237,7 @@ bindsym Print exec --no-startup-id flameshot gui
 #shutdown and reboot shortcut
 bindsym $mod+Shift+k exec --no-startup-id "~/.script/prompt 'Do you really want to shutdown?' 'systemctl poweroff -i'"
 bindsym $mod+Shift+p exec --no-startup-id "~/.script/prompt 'Do you really want to reboot?' 'systemctl reboot'"
-bindsym $mod+Shift+o exec --no-startup-id "~/.script/prompt 'Do you really want to suspend?' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
+bindsym $mod+Shift+o exec --no-startup-id "~/.script/prompt 'Do you really want to suspend?' '/home/as3ii/.script/DPMS.sh'"
 #bindsym $mod+Shift+k exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to shutdown?' -b 'Yes' 'systemctl poweroff -i'"
 #bindsym $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to reboot?' -b 'Yes' 'systemctl reboot'"
 #bindsym $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
@@ -264,10 +267,11 @@ exec --no-startup-id "numlockx on"
 # create workspaces
 exec --no-startup-id i3-msg 'workspace $ws4; exec telegram-desktop'
 exec --no-startup-id i3-msg 'workspace $ws3; exec firefox'
-exec --no-startup-id i3-msg 'workspace $ws9; exec st -e htop'
-exec --no-startup-id i3-msg 'workspace $ws9; exec st -e nmon'
+exec --no-startup-id i3-msg 'workspace $ws9; exec $TERMINAL -e htop'
+exec --no-startup-id i3-msg 'workspace $ws9; exec $TERMINAL -e nmon'
 exec --no-startup-id i3-msg 'workspace $ws6; exec spotify'
-exec --no-startup-id i3-msg 'workspace $ws8; exec st -e alsamixer'
+exec --no-startup-id i3-msg 'workspace $ws7; exec thunderbird'
+exec --no-startup-id i3-msg 'workspace $ws8; exec $TERMINAL -e alsamixer'
 exec --no-startup-id i3-msg 'workspace $ws10; exec run_keybase; exec bitwarden-desktop'
 #return to first workspace
 exec --no-startup-id i3-msg 'workspace $ws1'

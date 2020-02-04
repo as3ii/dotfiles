@@ -123,6 +123,9 @@ nnoremap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
 inoremap <F2> <ESC>:w<CR>i
 
+" toggle paste mode
+set pastetoggle=<ins>
+
 " toggle tagbar
 nmap <F8> :TagbarToggle<CR>
 
