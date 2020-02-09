@@ -1,5 +1,4 @@
 ohmyzsh/ohmyzsh path:plugins/command-not-found
-ohmyzsh/ohmyzsh path:plugins/git
 
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions

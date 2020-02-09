@@ -237,7 +237,7 @@ bindsym Print exec --no-startup-id flameshot gui
 #shutdown and reboot shortcut
 bindsym $mod+Shift+k exec --no-startup-id "~/.script/prompt 'Do you really want to shutdown?' 'systemctl poweroff -i'"
 bindsym $mod+Shift+p exec --no-startup-id "~/.script/prompt 'Do you really want to reboot?' 'systemctl reboot'"
-bindsym $mod+Shift+o exec --no-startup-id "~/.script/prompt 'Do you really want to suspend?' '/home/as3ii/.script/DPMS.sh'"
+bindsym $mod+Shift+o exec --no-startup-id "~/.script/prompt 'Do you really want to suspend?' '/home/as3ii/.script/DPMSS.sh'"
 #bindsym $mod+Shift+k exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to shutdown?' -b 'Yes' 'systemctl poweroff -i'"
 #bindsym $mod+Shift+p exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to reboot?' -b 'Yes' 'systemctl reboot'"
 #bindsym $mod+Shift+o exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to suspend?' -b 'Yes' 'systemctl suspend && /home/as3ii/.script/DPMS.sh'"
