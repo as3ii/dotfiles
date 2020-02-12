@@ -1,0 +1,47 @@
+# basic settings
+set preview false
+set previewer ~/.script/preview
+set hidden true
+set color256 true
+set drawbox true
+set icons true
+set ignorecase true
+set shell zsh
+
+# functions
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/*|application/json) $EDITOR "$fx";;
+        video/*|application/pdf) xdg-open "$f" &;;
+        *) for f in "$fx"; do xdg-open "$f" > /dev/null 2> /dev/null & done;;
+    esac
+}}
+
+cmd mkdir ${{
+    set -f
+    printf "Dir name: "
+    read ans
+    mkdir "$ans"
+}}
+
+cmd touch ${{
+    set -f
+    printf "File name: "
+    read ans
+    $EDITOR "$ans"
+}}
+
+cmd openterm ${{
+    $TERMINAL &
+}}
+
+# disable some default keymap
+map m
+map "'"
+map '"'
+
+# keymap functions
+map <enter> open
+map <bs2> updir
+map e ${{$TERMINAL -e $EDITOR $f &}}
+
