@@ -1,4 +1,5 @@
 [Added Associations]
+application/vnd.rar=org.gnome.FileRoller.desktop;
 
 [Removed Associations]
 
@@ -12,7 +13,6 @@ text/x-shellscript=vim.desktop
 text/x-makefile=vim.desktop
 text/x-c++=vim.desktop
 text/x-c=vim.desktop
-text/x-c++src=vim.desktop
 text/x-chdr=vim.desktop
 text/x-tex=vim.desktop
 text/x-python=vim.desktop
@@ -31,4 +31,4 @@ application/x-bittorent=org.qbittorrent.qBittorrent.desktop
 application/epub+zip=org.pwmt.zathura.desktop
 inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
-
+application/vnd.rar=org.gnome.FileRoller.desktop
