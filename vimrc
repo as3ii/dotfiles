@@ -28,6 +28,7 @@ set autoindent
 " use intelligent indentation for C
 set smartindent
 " configure tabwidth and insert spaces instead of tabs
+set smarttab
 set tabstop=4        " tab width is 4 spaces
 set shiftwidth=4     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
@@ -53,7 +54,7 @@ set showmatch
 set comments=sl:/*,mb:\ *,elx:\ */
 
 " enable mouse navigation
-set mouse=a
+set mouse=nvcr
 
 " automatic running of :RustFmt when you save a buffer
 let g:rustfmt_autosave = 1
@@ -92,9 +93,6 @@ let g:syntastic_python_checkers = ['pylint']
 
 " format json file
 command FormatJSON execute "%!python -m json.tool"
-
-" toggle autocompiler
-noremap <A-c> :!setsid autocompiler.sh % &<CR>
 
 " wrap lines at 140 chars
 set textwidth=140
@@ -176,3 +174,7 @@ call vundle#end()
 filetype plugin indent on
 
 ":h vunndle -> help
+
+" fix alacritty mouse issue
+set ttymouse=sgr
+
