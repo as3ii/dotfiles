@@ -1,0 +1,115 @@
+### BSPCWM ###
+
+# kill focused window
+super + shift + q
+    bspc node -c
+
+# quit/restart bscpwm
+super + shift + {e,r}
+    bspc {quit,wm -r}
+
+
+### STATE ###
+
+# toggle fullscreen
+super + f
+    bspc node -t ~fullscreen
+
+# toggle floating
+super + shift + space
+    bspc node -t ~floating
+
+# set tiled
+super + space
+    bspc node -t tiled
+
+
+### FOCUS ###
+
+# focus (shift=swap) the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+    bspc node -{f,s} {west,south,north,east}
+
+# focus or send to the given workspace
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,node -d} focused:'^{1-9,10}'
+
+
+## APPLICATION ###
+
+# open terminal
+super + Return
+    alacritty
+
+# open dmenu
+super + d
+    dmenu_run
+
+# screenshot
+Print
+    flameshot gui
+
+
+### DISPLAY/AUDIO ###
+
+# Screen Brightness controls with notification
+XF86MonBrightnessUp
+    light -A 5 && notify-send -u low -t 500 'brightness up'
+XF86MonBrightnessDown
+    light -U 5 && notify-send -u low -t 500 'brightness downn'
+
+# Audio control with notification
+XF86AudioRaiseVolume
+    amixer set Master 5%+ && notify-send -u low -t 500 'volume up'
+XF86AudioLowerVolume
+    amixer set Master 5%- && notify-send -u low -t 500 'volume down'
+XF86AudioMute
+    amixer set Master toggle && notify-send -u low -t 500 'muted/unmuted'
+
+# Player control
+alt + space
+    playerctl play-pause
+alt + Left
+    playerctl previous
+alt + Right
+    playerctl next
+
+# ctrl+key sym
+super + x
+    xdotool key --clearmodifiers ctrl+x
+super + c
+    xdotool key --clearmodifiers ctrl+c
+super + v
+    xdotool key --clearmodifiers ctrl+v
+super + z
+    xdotool key --clearmodifiers ctrl+z
+super + a
+    xdotool key --clearmodifiers ctrl+a
+
+super + shift + c
+    xdotool key --clearmodifiers ctrl+shift+c
+super + shift + v
+    xdotool key --clearmodifiers ctrl+shift+v
+
+super + alt
+    xdotool key --clearmodifiers ctrl+alt
+super + alt + f
+    xdotool key --clearmodifiers ctrl+alt+f
+
+alt + Return
+    xdotool key --clearmodifiers ctrl+Return
+
+#shutdown, reboot, suspend and lock shortcuts
+super + shift + k
+    ~/.script/prompt 'Do you really want to shutdown?' 'systemctl poweroff -i'
+super + shift + p
+    ~/.script/prompt 'Do you really want to reboot?' 'systemctl reboot'
+super + shift + o
+    ~/.script/prompt 'Do you really want to suspend?' '/home/as3ii/.script/DPMSS.sh'
+super + shift + l
+    ~/.script/DPMS.sh
+
+#screencast shortcut
+super + shift + s
+    ~/.script/screencast
+
