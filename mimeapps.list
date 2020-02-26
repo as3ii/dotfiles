@@ -32,3 +32,4 @@ application/epub+zip=org.pwmt.zathura.desktop
 inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
 application/vnd.rar=org.gnome.FileRoller.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=desktopeditors.desktop
