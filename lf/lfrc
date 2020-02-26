@@ -1,7 +1,7 @@
 # basic settings
 set preview false
 set previewer ~/.script/preview
-set hidden true
+set hidden false
 set color256 true
 set drawbox true
 set icons true
@@ -31,7 +31,7 @@ cmd touch ${{
     $EDITOR "$ans"
 }}
 
-cmd openterm ${{
+cmd term ${{
     $TERMINAL &
 }}
 
@@ -44,4 +44,6 @@ map '"'
 map <enter> open
 map <bs2> updir
 map e ${{$TERMINAL -e $EDITOR $f &}}
+map H set hidden!
+map R redraw
 
