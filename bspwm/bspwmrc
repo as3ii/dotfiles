@@ -73,7 +73,6 @@ bspc rule -a "Thunderbird" desktop=$ws7
 bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
 bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
-bspc rule -a "Bitwarden" desktop=$ws10
 bspc rule -a "Keybase" desktop=$ws10
 bspc rule -a "Spotify" desktop=$ws6
 #shellcheck disable=SC2035
@@ -90,7 +89,6 @@ run "$TERMINAL --class nmon -e nmon"
 run spotify
 run thunderbird
 run "run_keybase -a"
-run bitwarden-desktop
 
 # go to first workspace
 sleep 5
