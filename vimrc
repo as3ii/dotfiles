@@ -95,15 +95,17 @@ let g:syntastic_python_checkers = ['pylint']
 command FormatJSON execute "%!python -m json.tool"
 
 " wrap lines at 140 chars
-set textwidth=140
+set textwidth=120
 
-" " set colorcolumn color
-" highlight ColorColumn ctermbg=7
-" " set column of colorcolumn
-" set colorcolumn=+1
+" set colorcolumn color
+highlight ColorColumn ctermbg=1
+" set column of colorcolumn
+set colorcolumn=+1
+" if markdown file: disable colorcolumn
+autocmd FileType markdown highlight ColorColumn ctermbg=0
 
 " set reb background when there are more then 120 char in a line
-autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
+"autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 
 " Enhanced keyboard mappings
 "
@@ -126,6 +128,13 @@ set pastetoggle=<ins>
 
 " toggle tagbar
 nmap <F8> :TagbarToggle<CR>
+
+augroup markdownbindings
+    autocmd! markdownbindings
+    " compile with pandoc and open zathura
+    autocmd FileType markdown nnoremap <buffer> <silent> <F4> :w<CR>:!~/.script/pandoc-pdf.sh %<CR><CR>
+    autocmd FileType markdown inoremap <buffer> <silent> <F4> <ESC>:w<CR>:!~/.script/pandoc-pdf.sh %<CR><CR>i
+augroup end
 
 augroup rustbindings
     autocmd! rustbindings
