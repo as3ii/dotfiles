@@ -6,7 +6,7 @@ TERMINALC="Alacritty"   # terminal emulator class
 
 # exec function: run only if not allready running
 run() {
-    if ! pgrep "$1"; then
+    if ! pgrep -f "$1"; then
         $1 &
     fi
 }
@@ -89,7 +89,7 @@ run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
 run spotify
 run thunderbird
-run run_keybase
+run "run_keybase -a"
 run bitwarden-desktop
 
 # go to first workspace
