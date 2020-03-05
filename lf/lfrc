@@ -13,23 +13,23 @@ set shellopts '-eu'
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
         text/*|application/json) $EDITOR "$fx";;
-        video/*|application/pdf) xdg-open "$f" & diown;;
+        video/*|application/pdf) xdg-open "$f" & disown;;
         *) for f in "$fx"; do xdg-open "$f" > /dev/null 2> /dev/null & done;;
     esac
 }}
 
 
 cmd mkdir ${{
-	set -f
-	printf "Dir name: "
-	read ans
-	mkdir "$ans"
+    set -f
+    printf "Dir name: "
+    read ans
+    mkdir "$ans"
 }}
 
 
 cmd touch ${{
     set -f
-	printf "File name: "
+    printf "File name: "
     read ans
     $EDITOR "$ans"
 }}
@@ -82,7 +82,7 @@ map <enter> open
 map <bs2> updir
 map e ${{$TERMINAL -e $EDITOR $f &}}
 map H set hidden!
-map R reloadi && refresh
+map R reload && refresh
 
 map gc cd ~/.config
 map ge cd /etc
