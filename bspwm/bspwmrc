@@ -21,6 +21,7 @@ numlockx on                                             # enable numlock
 run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
 run "polybar example"
+run "xbanish"
 
 # keyboard settings
 setxkbmap it
