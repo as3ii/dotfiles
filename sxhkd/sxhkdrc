@@ -41,6 +41,10 @@ super + {_,shift + }{1-9,0}
 super + Return
     alacritty
 
+# open terminal with tabbed
+super + shift + Return
+    tabbed -c alacritty --embed
+
 # open dmenu
 super + d
     dmenu_run
@@ -48,6 +52,17 @@ super + d
 # screenshot
 Print
     flameshot gui
+
+
+# Add focused window to a tabbed instance in given direction
+super + t; {Left,Down,Up,Right}
+    ~/.script/tabc.sh $(bspc query -N -n {west,south,north,east}) add $(bspc query -N -n focused)
+
+# Remove one tab from tabbed
+super + t; r
+    tabbed=$(bspc query -N -n focused); \
+    child=$(~/.script/tabc.sh $tabbed list | head -n1); \
+    ~/.script/tabc.sh $tabbed remove $child
 
 
 ### DISPLAY/AUDIO ###
@@ -76,28 +91,28 @@ alt + Right
 
 # ctrl+key sym
 super + x
-    xdotool key --clearmodifiers ctrl+x
+    xdotool keyup x key --clearmodifiers ctrl+x
 super + c
-    xdotool key --clearmodifiers ctrl+c
+    xdotool keyup c key --clearmodifiers ctrl+c
 super + v
-    xdotool key --clearmodifiers ctrl+v
+    xdotool keyup v key --clearmodifiers ctrl+v
 super + z
-    xdotool key --clearmodifiers ctrl+z
+    xdotool keyup z key --clearmodifiers ctrl+z
 super + a
-    xdotool key --clearmodifiers ctrl+a
+    xdotool keyup a key --clearmodifiers ctrl+a
 
 super + shift + c
-    xdotool key --clearmodifiers ctrl+shift+c
+    xdotool keyup Shift+c key --clearmodifiers ctrl+shift+c
 super + shift + v
-    xdotool key --clearmodifiers ctrl+shift+v
+    xdotool keyup Shift+v key --clearmodifiers ctrl+shift+v
 
 super + alt
-    xdotool key --clearmodifiers ctrl+alt
+    xdotool keyup Alt_L key --clearmodifiers ctrl+alt
 super + alt + f
-    xdotool key --clearmodifiers ctrl+alt+f
+    xdotool keyup Alt_L+f key --clearmodifiers ctrl+alt+f
 
 alt + Return
-    xdotool key --clearmodifiers ctrl+Return
+    xdotool keyup Return key --clearmodifiers ctrl+Return
 
 #shutdown, reboot, suspend and lock shortcuts
 super + shift + k
