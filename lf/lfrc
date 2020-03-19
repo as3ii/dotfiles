@@ -13,8 +13,9 @@ set shellopts '-eu'
 cmd open ${{
     case $(file --mime-type "$f" -bL) in
         text/*|application/json) $EDITOR "$fx";;
-        video/*|application/pdf) xdg-open "$f" & disown;;
-        *) for f in "$fx"; do xdg-open "$f" > /dev/null 2> /dev/null & done;;
+        video/*|application/pdf) setsid xdg-open "$f" > /dev/null 2>&1 &;;
+        application/x-dosexec) setsid optirun wine "$f" > /dev/null 2>&1 &;;
+        *) for f in "$fx"; do setsid xdg-open "$f" > /dev/null 2>&1 & done;;
     esac
 }}
 

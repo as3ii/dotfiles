@@ -1,5 +1,6 @@
 [Added Associations]
 application/vnd.rar=org.gnome.FileRoller.desktop;
+application/x-shellscript=wine-extension-txt.desktop;
 
 [Removed Associations]
 
@@ -33,3 +34,4 @@ inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
 application/vnd.rar=org.gnome.FileRoller.desktop
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=desktopeditors.desktop
+video/quicktime=vlc.desktop
