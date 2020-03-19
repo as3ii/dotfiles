@@ -1,0 +1,21 @@
+# ALSA library configuration file
+
+# use `cat /proc/asound/card*/id` or `cat /proc/asound/cards` to see card name
+# use `aplay -l` to see card number/device number
+
+# audio playback
+pcm.!default {
+    type hw
+    card PCH
+    device 0
+}
+
+# control utilities (alsamixer)
+ctl.!default {
+    type hw
+    card PCH
+}
+
+# set resampling
+defaults.pcm.rate_converter "speexrate_best"
+

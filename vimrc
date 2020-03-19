@@ -185,5 +185,7 @@ filetype plugin indent on
 ":h vunndle -> help
 
 " fix alacritty mouse issue
-set ttymouse=sgr
+if !has('nvim')
+    set ttymouse=sgr
+endif
 
