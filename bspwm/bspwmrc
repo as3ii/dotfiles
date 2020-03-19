@@ -20,7 +20,7 @@ run firewall-applet                                     # firewalld applet
 numlockx on                                             # enable numlock
 run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
-run "polybar example"
+run "polybar -r example"
 run "xbanish"
 
 # keyboard settings
@@ -50,7 +50,7 @@ bspc monitor eDP1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 ## WM config ##
 bspc config border_width                  2
 bspc config window_gap                    0
-bspc config top_padding                   24
+bspc config top_padding                   26
 bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0
@@ -89,8 +89,4 @@ run "$TERMINAL --class nmon -e nmon"
 run spotify
 run thunderbird
 run "run_keybase -a"
-
-# go to first workspace
-sleep 5
-bscp desktop -f focused:^1
 
