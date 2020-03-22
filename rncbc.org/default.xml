@@ -1,0 +1,28 @@
+<!DOCTYPE patchbay>
+<patchbay name="default" version="0.6.1">
+ <output-sockets>
+  <socket name="Mic" type="jack-audio" client="system" exclusive="off">
+   <plug>capture_1</plug>
+  </socket>
+  <socket name="Music Player Daemon 1" type="jack-audio" client="Music Player Daemon" exclusive="off">
+   <plug>left</plug>
+   <plug>right</plug>
+  </socket>
+  <socket name="Firefox 1" type="jack-audio" client="Firefox" exclusive="off">
+   <plug>AudioStream_0_out_0</plug>
+   <plug>AudioStream_0_out_1</plug>
+  </socket>
+ </output-sockets>
+ <input-sockets>
+  <socket name="Out" type="jack-audio" client="system" exclusive="off">
+   <plug>left</plug>
+   <plug>right</plug>
+  </socket>
+ </input-sockets>
+ <slots/>
+ <cables>
+  <cable input="Out" type="jack-audio" output="Music Player Daemon 1"/>
+  <cable input="Out" type="jack-audio" output="Firefox 1"/>
+ </cables>
+</patchbay>
+
