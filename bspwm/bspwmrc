@@ -22,6 +22,7 @@ run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
 run "polybar -r example"
 run "xbanish"
+run "qjackctl"
 
 # keyboard settings
 setxkbmap it
@@ -68,12 +69,13 @@ bspc rule -a "firefox" desktop=$ws3
 bspc rule -a "Tor Browser" desktop=$ws3
 bspc rule -a "TelegramDesktop" desktop=$ws4
 bspc rule -a "vlc" desktop=$ws5
-bspc rule -a "qBittorrent" desktop=$ws5
+bspc rule -a "qBittorrent" desktop=$ws6
 bspc rule -a "Thunderbird" desktop=$ws7
 bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
 bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
 bspc rule -a "Keybase" desktop=$ws10
+bspc rule -a "cantata" desktop=$ws6
 bspc rule -a "Spotify" desktop=$ws6
 #shellcheck disable=SC2035
 bspc rule -a *:"spotify" desktop=$ws6
@@ -89,4 +91,5 @@ run "$TERMINAL --class nmon -e nmon"
 run spotify
 run thunderbird
 run "run_keybase -a"
+run "cantata"
 
