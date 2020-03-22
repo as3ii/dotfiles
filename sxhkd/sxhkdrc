@@ -47,7 +47,11 @@ super + shift + Return
 
 # open dmenu
 super + d
-    dmenu_run
+    prog="$(dmenu_path | dmenu -i -fn 'Monospace 10')"; [ -n "$prog" ] && setsid "$prog" &
+
+# dmenu calculator
+super + shift + d
+    ~/.script/dmenu_calc.sh
 
 # screenshot
 Print
@@ -75,11 +79,11 @@ XF86MonBrightnessDown
 
 # Audio control with notification
 XF86AudioRaiseVolume
-    amixer set Master 5%+ && notify-send -u low -t 500 'volume up'
+    ~/.script/volume.sh up
 XF86AudioLowerVolume
-    amixer set Master 5%- && notify-send -u low -t 500 'volume down'
+    ~/.script/volume.sh down
 XF86AudioMute
-    amixer set Master toggle && notify-send -u low -t 500 'muted/unmuted'
+    ~/.script/volume.sh toggle
 
 # Player control
 alt + space
