@@ -1,5 +1,6 @@
 Bitwarden/
 calibre/
+cantata/
 cef_user_data/
 configstore/
 dconf/
@@ -21,6 +22,7 @@ libvirt/*/
 lbry/
 LBRY/
 menus/
+nvim-qt/
 obs-studio/
 onlyoffice/
 pulse/
