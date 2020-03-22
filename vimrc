@@ -127,7 +127,7 @@ inoremap <F2> <ESC>:w<CR>i
 set pastetoggle=<ins>
 
 " toggle tagbar
-nmap <F8> :TagbarToggle<CR>
+nmap <F9> :TagbarToggle<CR>
 
 augroup markdownbindings
     autocmd! markdownbindings
@@ -162,27 +162,46 @@ augroup cppbindings
     autocmd FileType cpp nnoremap <buffer> <silent> <S-F7> :make clean all<CR>
 augroup end
 
-"vundle plugin manager
-filetype off
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-commentary' " gc + movement to comment
-Plugin 'rust-lang/rust.vim'
-Plugin 'tpope/vim-surround' " s + movement +char  to surround with char
-Plugin 'amperser/proselint'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'bronson/vim-trailing-whitespace' " fix whitespace error with :FixWhitespace
-Plugin 'elzr/vim-json'
-Plugin 'fatih/vim-go'
-Plugin 'majutsushi/tagbar'
-" All of your Plugins must be added before the following line
-call vundle#end()
-filetype plugin indent on
 
-":h vunndle -> help
+" autoinstall vim-plug
+if !has('nvim')
+	if empty(glob('~/.vim/autoload/plug.vim'))
+  		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+else
+    if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+        silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
+endif
+
+
+" vim-plug plugin manager
+if !has('nvim')
+    call plug#begin('~/.vim/plugged')
+else
+    call plug#begin('~/.local/share/nvim/plugged')
+endif
+Plug 'junegunn/vim-plug'
+Plug 'tpope/vim-commentary' " gc + movement to comment
+" Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'tpope/vim-surround' " s + movement + char  to surround with char
+Plug 'amperser/proselint'
+Plug 'vim-syntastic/syntastic'
+Plug 'bronson/vim-trailing-whitespace' " fix whitespace error with :FixWhitespace
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'majutsushi/tagbar'
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+call plug#end()
+
+" LanguageClient config
+let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer'],}
+nnoremap <F8> :call LanguageClient_contextMenu()<CR>
 
 " fix alacritty mouse issue
 if !has('nvim')
