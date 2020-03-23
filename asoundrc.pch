@@ -5,15 +5,24 @@
 
 # audio playback
 pcm.!default {
-    type hw
-    card PCH
-    device 0
+    type plug
+    slave.pcm "jack"
+    hint.description "Jack Audio"
 }
+
+# # audio playback
+# pcm.!default {
+#     type hw
+#     card PCH
+#     # card Keyboard
+#     device 0
+# }
 
 # control utilities (alsamixer)
 ctl.!default {
     type hw
     card PCH
+    # card Keyboard
 }
 
 # set resampling
