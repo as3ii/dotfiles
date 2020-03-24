@@ -22,7 +22,13 @@ run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
 run "polybar -r example"
 run "xbanish"
-run "qjackctl"
+if cat /proc/asound/card*/id | grep -i keyboard ; then
+    ln -sf ~/.config/asoundrc.keyboard ~/.asoundrc
+    qjackctl -s -p Keyboard &
+else
+    ln -sf ~/.config/asoundrc.pch ~/.asoundrc
+    qjackctl -s -p PCH &
+fi
 
 # keyboard settings
 setxkbmap it

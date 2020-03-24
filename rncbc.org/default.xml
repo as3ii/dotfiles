@@ -1,28 +1,44 @@
 <!DOCTYPE patchbay>
 <patchbay name="default" version="0.6.1">
  <output-sockets>
-  <socket name="Mic" type="jack-audio" client="system" exclusive="off">
-   <plug>capture_1</plug>
+  <socket exclusive="off" type="jack-audio" client="alsoft" name="alsoft 1">
+   <plug>channel_1</plug>
+   <plug>channel_2</plug>
   </socket>
-  <socket name="Music Player Daemon 1" type="jack-audio" client="Music Player Daemon" exclusive="off">
+  <socket exclusive="off" type="jack-audio" client="alsa-jack\.jackP\.[0-9]+\.0" name="Spotify">
+   <plug>out_000</plug>
+   <plug>out_001</plug>
+  </socket>
+  <socket exclusive="off" type="jack-audio" client="Music Player Daemon" name="Music Player Daemon 1">
    <plug>left</plug>
    <plug>right</plug>
   </socket>
-  <socket name="Firefox 1" type="jack-audio" client="Firefox" exclusive="off">
+  <socket exclusive="off" type="jack-audio" client="Firefox" name="Firefox 1">
    <plug>AudioStream_0_out_0</plug>
    <plug>AudioStream_0_out_1</plug>
   </socket>
+  <socket exclusive="off" type="jack-audio" client="system" name="Mic">
+   <plug>capture_1</plug>
+   <plug>capture_2</plug>
+  </socket>
  </output-sockets>
  <input-sockets>
-  <socket name="Out" type="jack-audio" client="system" exclusive="off">
+  <socket exclusive="off" type="jack-audio" client="system" name="Out">
    <plug>left</plug>
    <plug>right</plug>
+  </socket>
+  <socket exclusive="off" type="jack-audio" client="JACK Input Client" name="OBS">
+   <plug>in_1</plug>
+   <plug>in_2</plug>
   </socket>
  </input-sockets>
  <slots/>
  <cables>
-  <cable input="Out" type="jack-audio" output="Music Player Daemon 1"/>
-  <cable input="Out" type="jack-audio" output="Firefox 1"/>
+  <cable type="jack-audio" output="alsoft 1" input="Out"/>
+  <cable type="jack-audio" output="Spotify" input="Out"/>
+  <cable type="jack-audio" output="Mic" input="OBS"/>
+  <cable type="jack-audio" output="Music Player Daemon 1" input="Out"/>
+  <cable type="jack-audio" output="Firefox 1" input="Out"/>
  </cables>
 </patchbay>
 
