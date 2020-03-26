@@ -3,28 +3,52 @@
 # use `cat /proc/asound/card*/id` or `cat /proc/asound/cards` to see card name
 # use `aplay -l` to see card number/device number
 
+# mix sources
+pcm.dmixer {
+    type dmix
+    ipc_key 1024 # must be unique
+    ipc_key_add_uid true
+    slave {
+        pcm {
+            type hw
+            card PCH
+            nonblock true
+            format S32_LE
+            channels 2
+            rate 48000
+        }
+        period_time 0
+        period_size 1024
+        buffer_size 4096
+    }
+}
+
+pcm.mic {
+    type dsnoop
+    ipc_key 1025
+    ipc_key_add_uid true
+    slave {
+        pcm {
+            type hw
+            card PCH
+            nonblock true
+            format S16_LE
+            rate 48000
+        }
+    }
+}
+
 # audio playback
 pcm.!default {
     type plug
-    slave.pcm "jack"
-    hint.description "Jack Audio"
+    slave.pcm "dmixer"
+    # slave.pcm "jack"
+    hint.description "Default Soundcard"
 }
-
-# # audio playback
-# pcm.!default {
-#     type hw
-#     card PCH
-#     # card Keyboard
-#     device 0
-# }
 
 # control utilities (alsamixer)
 ctl.!default {
     type hw
     card PCH
-    # card Keyboard
 }
-
-# set resampling
-defaults.pcm.rate_converter "speexrate_best"
 
