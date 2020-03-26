@@ -14,7 +14,7 @@ run() {
 ### early start programs ###
 run sxhkd                                               # keybindings
 run "picom --daemon"                                    # compositor
-run "dunst -config ~/.config/dunst/dunstrc"             # notification daemon
+run "dunst"                                             # notification daemon
 run nm-applet                                           # NetworkManager applet
 run firewall-applet                                     # firewalld applet
 numlockx on                                             # enable numlock
@@ -22,12 +22,16 @@ run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
 run "polybar -r example"
 run "xbanish"
+run "optimus-manager-qt"
+# exec mpd
+if ! pgrep -f "mpd"; then
+    (prlimit --rtprio=40 --rttime=unlimited mpd && run "mpd-mpris") &
+fi
+# set alsa config
 if cat /proc/asound/card*/id | grep -i keyboard ; then
     ln -sf ~/.config/asoundrc.keyboard ~/.asoundrc
-    qjackctl -s -p Keyboard &
 else
     ln -sf ~/.config/asoundrc.pch ~/.asoundrc
-    qjackctl -s -p PCH &
 fi
 
 # keyboard settings
@@ -50,8 +54,8 @@ if xrandr -q | grep HDML1 | awk '{print $2}' | grep -q connected; then
     xrandr --output HDMI1 --above eDP1
     bspc monitor HDMI1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 fi
-xrandr --output eDP1 --primary
-bspc monitor eDP1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+xrandr --output eDP1 --primary 2>&1 | grep warning || xrandr --output "$(xrandr --listmonitors | awk '{printf $4}')" --primary
+bspc monitor "$(bspc query --names -M)" -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 
 
 ## WM config ##
@@ -81,11 +85,7 @@ bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
 bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
 bspc rule -a "Keybase" desktop=$ws10
-bspc rule -a "cantata" desktop=$ws6
-bspc rule -a "Spotify" desktop=$ws6
-#shellcheck disable=SC2035
-bspc rule -a *:"spotify" desktop=$ws6
-bspc rule -a "" desktop=$ws6    #spotify
+bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 
 # late start programs
@@ -94,8 +94,9 @@ run telegram-desktop
 run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
-run spotify
 run thunderbird
-run "run_keybase -a"
-run "cantata"
+if ! pgrep -f "keybase"; then
+    run_keybase -a
+fi
+run "$TERMINAL --class ncmpcpp -e ncmpcpp"
 

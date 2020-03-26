@@ -87,11 +87,11 @@ XF86AudioMute
 
 # Player control
 alt + space
-    playerctl play-pause
+    sh -c 'if (for ply in $(playerctl -l); do playerctl -p $ply status; done | grep "Playing"); then playerctl -a pause; else playerctl play; fi'
 alt + Left
-    playerctl previous
+    sh -c 'playerctl -l | while read ply; do playerctl -p $ply status | grep "Playing" && playerctl -p $ply previous; done '
 alt + Right
-    playerctl next
+    sh -c 'playerctl -l | while read ply; do playerctl -p $ply status | grep "Playing" && playerctl -p $ply next; done'
 
 # ctrl+key sym
 super + x
