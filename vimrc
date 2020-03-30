@@ -194,10 +194,15 @@ Plug 'vim-syntastic/syntastic'
 Plug 'bronson/vim-trailing-whitespace' " fix whitespace error with :FixWhitespace
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'majutsushi/tagbar'
+Plug 'unblevable/quick-scope'
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
+
+" quick-scope settings
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
 " LanguageClient config
 let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer'],}
