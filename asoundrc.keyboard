@@ -31,7 +31,7 @@ pcm.dmixer {
 }
 
 # mixed loopback input
-pcm.loopin {
+pcm.dmixloopin {
     type dmix
     ipc_key 1126    # must be unique
     ipc_key_add_uid true
@@ -59,7 +59,7 @@ pcm.multiple {
             channels 2
         }
         slaves.b {
-            pcm "loopin"
+            pcm "dmixloopin"
             channels 2
         }
         bindings {

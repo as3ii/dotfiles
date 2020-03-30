@@ -57,7 +57,7 @@ pcm.multiple {
         type multi
         slaves.a {
             pcm "dmixer"
-            channels2
+            channels 2
         }
         slaves.b {
             pcm "dmixloopin"
@@ -91,7 +91,6 @@ pcm.mic {
         }
     }
 }
-
 
 # duplex audio playback+capture
 pcm.!default {
