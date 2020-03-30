@@ -37,10 +37,10 @@ fixed-center = false
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 1
 line-color = #f00
 
-border-size = 1
+border-size = 0
 border-color = #00000000
 
 padding-left = 0
@@ -49,13 +49,13 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = NotoMono:pixelsize=11;
-font-1 = HackNerdFont:pizelsize=11;
+font-0 = NotoMono:pixelsize=12;
+font-1 = HackNerdFont:pizelsize=12;
 font-2 = NotoColorEmoji:scale=12:fontformat=truetype;
 
 modules-left = bspwm i3 xwindow
 ;modules-center = xwindow
-modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 1
@@ -101,7 +101,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint% %{F-}: %percentage_used%%
+label-mounted = %mountpoint% %{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -245,8 +245,8 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date =
-date-alt = " %Y-%m-%d"
+date = "%d-%m-%Y"
+date-alt = "%d-%m-%Y"
 
 time = %H:%M
 time-alt = %H:%M:%S
@@ -361,7 +361,7 @@ label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
 ramp-1 = 
-ramp-2 = 
+ramp-2 = Z
 ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]

@@ -79,19 +79,19 @@ XF86MonBrightnessDown
 
 # Audio control with notification
 XF86AudioRaiseVolume
-    ~/.script/volume.sh up
+    ~/.script/volume.sh up > /dev/null
 XF86AudioLowerVolume
-    ~/.script/volume.sh down
+    ~/.script/volume.sh down > /dev/null
 XF86AudioMute
-    ~/.script/volume.sh toggle
+    ~/.script/volume.sh toggle > /dev/null
 
 # Player control
 alt + space
-    sh -c 'if (for ply in $(playerctl -l); do playerctl -p $ply status; done | grep "Playing"); then playerctl -a pause; else playerctl play; fi'
+    sh -c 'if (for ply in $(playerctl -l); do playerctl -p $ply status; done | grep "Playing"); then playerctl -a pause; else playerctl play; fi' > /dev/null
 alt + Left
-    sh -c 'playerctl -l | while read ply; do playerctl -p $ply status | grep "Playing" && playerctl -p $ply previous; done '
+    sh -c 'playerctl -l | while read ply; do playerctl -p $ply status | grep "Playing" && playerctl -p $ply previous; done ' > /dev/null
 alt + Right
-    sh -c 'playerctl -l | while read ply; do playerctl -p $ply status | grep "Playing" && playerctl -p $ply next; done'
+    sh -c 'playerctl -l | while read ply; do playerctl -p $ply status | grep "Playing" && playerctl -p $ply next; done' > /dev/null
 
 # ctrl+key sym
 super + x
