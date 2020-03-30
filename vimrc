@@ -165,12 +165,14 @@ augroup end
 
 " autoinstall vim-plug
 if !has('nvim')
-	if empty(glob('~/.vim/autoload/plug.vim'))
+	let plug_dir = '~/.vim/plugged'
+    if empty(glob('~/.vim/autoload/plug.vim'))
   		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 else
+    let plug_dir = '~/.local/share/nvim/plugged'
     if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
         silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -180,11 +182,7 @@ endif
 
 
 " vim-plug plugin manager
-if !has('nvim')
-    call plug#begin('~/.vim/plugged')
-else
-    call plug#begin('~/.local/share/nvim/plugged')
-endif
+call plug#begin(plug_dir)
 Plug 'junegunn/vim-plug'
 Plug 'tpope/vim-commentary' " gc + movement to comment
 " Plug 'rust-lang/rust.vim', {'for': 'rust'}
