@@ -5,10 +5,10 @@ application/x-shellscript=wine-extension-txt.desktop;
 [Removed Associations]
 
 [Default Applications]
-image/png=feh.desktop
-image/jpg=feh.desktop
-image/jpeg=feh.desktop
-image/bmp=feh.desktop
+image/png=sxiv.desktop
+image/jpg=sxiv.desktop
+image/jpeg=sxiv.desktop
+image/bmp=sxiv.desktop
 text/plain=vim.desktop
 text/x-shellscript=vim.desktop
 text/x-makefile=vim.desktop
