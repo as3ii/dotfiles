@@ -79,18 +79,6 @@ set statusline+=\ \ \ \|\ \ col:%3c\ \ line:%3l/%L\ -\ %3p%%\
 set statusline+=%0*
 hi User1 ctermfg=black ctermbg=grey
 
-" syntastic options
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_python_checkers = ['pylint']
-
 " format json file
 command FormatJSON execute "%!python -m json.tool"
 
@@ -126,9 +114,6 @@ inoremap <F2> <ESC>:w<CR>i
 " toggle paste mode
 set pastetoggle=<ins>
 
-" toggle tagbar
-nmap <F9> :TagbarToggle<CR>
-
 augroup markdownbindings
     autocmd! markdownbindings
     " compile with pandoc and open zathura
@@ -138,28 +123,24 @@ augroup end
 
 augroup rustbindings
     autocmd! rustbindings
-    " cargo check
-    autocmd FileType rust nnoremap <buffer> <silent> <F4> :Cargo check
     " cargo run
-    autocmd FileType rust nnoremap <buffer> <silent> <F5> :Crun
+    autocmd FileType rust nnoremap <buffer> <silent> <F4> :RustRun<CR>
     " cargo run --release
-    autocmd FileType rust nnoremap <buffer> <silent> <S-F5> :Crun --release
+    autocmd FileType rust nnoremap <buffer> <silent> <S-F4> :RustRun --release<CR>
     " cargo build
-    autocmd FileType rust nnoremap <buffer> <silent> <F6> :Cbuild
+    autocmd FileType rust nnoremap <buffer> <silent> <F6> :! cargo build<CR>
     " cargo build --release
-    autocmd FileType rust nnoremap <buffer> <silent> <S-F6> :Cbuild --relese
+    autocmd FileType rust nnoremap <buffer> <silent> <S-F6> :! cargo build --relese<CR>
 augroup end
 
 augroup cppbindings
     autocmd! cppbindings
-    " switch between header/source with F4
+    " switch between header/source with <F4>
     autocmd FileType cpp nnoremap <buffer> <silent> <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-    " recreate tags file with F5
-    autocmd FileType cpp nnoremap <buffer> <silent> <F5> :!ctags -R –c++-kinds=+p –fields=+iaS –extra=+q .<CR>
-    " build using makeprg with <F7>
-    autocmd FileType cpp nnoremap <buffer> <silent> <F7> :make<CR>
-    " build using makeprg with <S-F7>
-    autocmd FileType cpp nnoremap <buffer> <silent> <S-F7> :make clean all<CR>
+    " build using makeprg with <F6>
+    autocmd FileType cpp nnoremap <buffer> <silent> <F6> :make<CR>
+    " build using makeprg with <S-F6>
+    autocmd FileType cpp nnoremap <buffer> <silent> <S-F6> :make clean all<CR>
 augroup end
 
 
@@ -183,18 +164,22 @@ endif
 
 " vim-plug plugin manager
 call plug#begin(plug_dir)
-Plug 'junegunn/vim-plug'
-Plug 'tpope/vim-commentary' " gc + movement to comment
-" Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'tpope/vim-surround' " s + movement + char  to surround with char
-Plug 'amperser/proselint'
-Plug 'vim-syntastic/syntastic'
-Plug 'bronson/vim-trailing-whitespace' " fix whitespace error with :FixWhitespace
+Plug 'junegunn/vim-plug'                " plugin manager
+Plug 'tpope/vim-commentary'             " gc + movement to comment
+Plug 'bronson/vim-trailing-whitespace'  " fix whitespace error with :FixWhitespace
 Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'unblevable/quick-scope'
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'unblevable/quick-scope'           " highlight character reachable with f, F, t or T keybinding
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}  " language client
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " needed by LanguageClient_contextMenu
+" completions plugin
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'Shougo/echodoc.vim'   " show function signature
 call plug#end()
 
 " quick-scope settings
@@ -203,8 +188,23 @@ highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=unde
 highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
 " LanguageClient config
-let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer'],}
+let g:LanguageClient_serverCommands = {
+    \'rust': ['rust-analyzer'],
+    \'c': ['clangd'],
+    \'cpp': ['clangd'],
+    \'latex': ['texlab'],
+    \}
+nnoremap <F5> :call LanguageClient#textDocument_formatting()<CR>
 nnoremap <F8> :call LanguageClient_contextMenu()<CR>
+
+" Enable deoplete
+let g:deoplete#enable_at_startup = 1
+
+" config for echodoc
+"set cmdheight=2
+set noshowmode
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'echo'
 
 " fix alacritty mouse issue
 if !has('nvim')

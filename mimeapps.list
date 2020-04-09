@@ -1,6 +1,7 @@
 [Added Associations]
 application/vnd.rar=org.gnome.FileRoller.desktop;
 application/x-shellscript=wine-extension-txt.desktop;
+application/epub+zip=calibre-ebook-viewer.desktop;
 
 [Removed Associations]
 
@@ -29,7 +30,7 @@ video/avi=vlc.desktop
 application/octet-stream=vlc.desktop
 application/pdf=org.pwmt.zathura.desktop
 application/x-bittorent=org.qbittorrent.qBittorrent.desktop
-application/epub+zip=org.pwmt.zathura.desktop
+application/epub+zip=calibre-ebook-viewer.desktop
 inode/directory=nemo.desktop
 application/x-gnome-saved-search=nemo.desktop
 application/vnd.rar=org.gnome.FileRoller.desktop
