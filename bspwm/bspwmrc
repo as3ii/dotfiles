@@ -16,7 +16,6 @@ run sxhkd                                               # keybindings
 run "picom --daemon"                                    # compositor
 run "dunst"                                             # notification daemon
 run nm-applet                                           # NetworkManager applet
-run firewall-applet                                     # firewalld applet
 numlockx on                                             # enable numlock
 run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
@@ -79,7 +78,7 @@ bspc config merge_overlapping_monitors    true
 bspc rule -a "firefox" desktop=$ws3
 bspc rule -a "Tor Browser" desktop=$ws3
 bspc rule -a "TelegramDesktop" desktop=$ws4
-bspc rule -a "vlc" desktop=$ws5
+bspc rule -a "mpv" desktop=$ws5
 bspc rule -a "qBittorrent" desktop=$ws6
 bspc rule -a "Thunderbird" desktop=$ws7
 bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
