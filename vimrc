@@ -117,8 +117,8 @@ set pastetoggle=<ins>
 augroup markdownbindings
     autocmd! markdownbindings
     " compile with pandoc and open zathura
-    autocmd FileType markdown nnoremap <buffer> <silent> <F4> :w<CR>:!~/.script/pandoc-pdf.sh %<CR><CR>
-    autocmd FileType markdown inoremap <buffer> <silent> <F4> <ESC>:w<CR>:!~/.script/pandoc-pdf.sh %<CR><CR>i
+    autocmd FileType markdown nnoremap <buffer> <silent> <F4> :w<CR>:!~/.script/pandoc-pdf.sh "%:p"<CR><CR>
+    autocmd FileType markdown inoremap <buffer> <silent> <F4> <ESC>:w<CR>:!~/.script/pandoc-pdf.sh "%:p"<CR><CR>i
 augroup end
 
 augroup rustbindings
