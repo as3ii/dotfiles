@@ -28,19 +28,21 @@ cmd touch %set -f; printf "File name: "; read ans; $EDITOR "$ans"
 cmd paste &{{
     load=$(lf -remote 'load')
     mode=$(echo "$load" | sed -n '1p')
-    list=$(echo "$load" | sed '1d')
-    if [ "$mode" = 'copy' ]; then
-        rsync -av --ignore-existing --progress "$list" . \
-        | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
-        | while read line; do
-            lf -remote "send $id echo $line"
-        done
-    elif [ "$mode" = 'move' ]; then
-        mv -n "$list" .
-    fi
+    echo "$load" | sed '1d' | while read file; do
+        if [ $mode = 'copy' ]; then
+            rsync -av --ignore-existing --progress "$file" . \
+            | stdbuf -i0 -o0 -e0 tr '\r' '\n' \
+            | while read line; do
+                lf -remote "send $id echo $line"
+            done
+        elif [ $mode = 'move' ]; then
+            mv -n "$file" .
+        fi
+    done
     lf -remote 'send load'
     lf -remote 'send clear'
 }}
+
 
 # bulk rename
 cmd bulk-rename ${{
