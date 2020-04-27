@@ -66,6 +66,21 @@ source <(antibody init)
 antibody bundle < ~/.zsh_plugins.txt
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
+# functions
+sleepuntil() {
+    now=$(date +%s)
+    target=$(date -d "$1" +%s)
+    diff=$(( $target - $now ))
+    if [ $diff -gt 0 ]; then
+        printf "Sleeping for %ss\n" "$diff"
+        sleep "$diff"
+        return 0
+    else
+        printf "Target date/hours passed\n"
+        return 1
+    fi
+}
+
 # aliases
 alias tree="exa --tree --level=3"
 alias ls="exa --classify"
