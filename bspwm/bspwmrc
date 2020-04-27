@@ -21,11 +21,10 @@ run ~/.script/wallpaper.sh                              # wallpaper script
 run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
 run "polybar -r example"
 run "xbanish"
+run "xclip -silent"
 run "optimus-manager-qt"
 # exec mpd
-if ! pgrep -f "mpd"; then
-    (prlimit --rtprio=40 --rttime=unlimited mpd --verbose && run "mpd-mpris") &
-fi
+run "mpd"
 run "mpd-mpris"
 # set alsa config
 if cat /proc/asound/card*/id | grep -i keyboard ; then
