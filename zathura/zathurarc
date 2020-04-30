@@ -4,5 +4,8 @@ set font "Noto Sans 11"
 set guioptions shv
 set selection-clipboard clipboard
 
-map [normal] f toggle_fullscreen
-map [fullscreen] f toggle_fullscreen
+set guioptions none
+map c set recolor-keephue "true"
+map t toggle_statusbar
+
+map f toggle_fullscreen
