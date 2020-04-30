@@ -187,6 +187,7 @@ bar-empty-foreground = ${colors.foreground-alt}
 inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
+enable-scroll = true
 
 [module/cpu]
 type = internal/cpu
@@ -284,7 +285,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 98
+full-at = 94
 
 time-format = %H:%M
 
