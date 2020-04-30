@@ -6,35 +6,38 @@ TERMINALC="Alacritty"   # terminal emulator class
 
 # exec function: run only if not allready running
 run() {
-    if ! pgrep -f "$1"; then
-        $1 &
+    pgrep -fx "$1" >/dev/null || $1 &
+}
+
+reload() {
+    if pgrep -fx "$1" >/dev/null; then
+        PID="$(pgrep -fx "$1")"
+        timeout -k 3 2 kill -TERM $PID || \
+            timeout -k 3 2 kill -KILL $PID || \
+            kill -SEGV $PID
+        sleep 1
     fi
+    $1 &
 }
 
 ### early start programs ###
-run sxhkd                                               # keybindings
-run "picom --daemon"                                    # compositor
-run "dunst"                                             # notification daemon
-run nm-applet                                           # NetworkManager applet
-numlockx on                                             # enable numlock
-run ~/.script/wallpaper.sh                              # wallpaper script
-run "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" # apparmor notification
-run "polybar -r example"
-run "xbanish"
-run "xclip -silent"
-run "optimus-manager-qt"
-# exec mpd
-run "mpd"
-run "mpd-mpris"
-# set alsa config
-if cat /proc/asound/card*/id | grep -i keyboard ; then
-    ln -sf ~/.config/asoundrc.keyboard ~/.asoundrc
-else
-    ln -sf ~/.config/asoundrc.pch ~/.asoundrc
-fi
+reload "sxhkd"                                          # keybindings
+reload "picom --daemon"                                 # compositor
+reload "dunst"                                          # notification daemon
+run "nm-applet"                                         # NetworkManager applet
+run "~/.script/wallpaper.sh"                            # wallpaper script
+pgrep -x "aa-notify" >/dev/null || \
+    "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
+run "polybar -r example"                                # bar
+run "xbanish"                                           # hide cursor when typing
+run "optimus-manager-qt"                                # manage multiple GPUs
+run "qjackctl"                                          # server audio
+reload "mpd"                                            # music server
+reload "mpd-mpris"
 
 # keyboard settings
 setxkbmap it
+numlockx on
 
 
 ws1="I"
@@ -88,14 +91,12 @@ bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 
 # late start programs
-run firefox
-run telegram-desktop
+pgrep -x "firefox" >/dev/null || firefox &
+reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
-run thunderbird
-if ! pgrep -f "keybase"; then
-    run_keybase -a
-fi
-run "$TERMINAL --class ncmpcpp -e ncmpcpp"
+run "thunderbird"
+pgrep -x "keybase" >/dev/null || run_keybase -a &
+run "$TERMINAL --class ncmpcpp -e ncmpcpp 2>/dev/null"
 
