@@ -40,8 +40,8 @@ set showcmd
 set hlsearch         " enable highlight when searching
 nnoremap <silent> <F3> :noh<CR>  " press F3 to disable last search highlight
 
-" colorscheme wombat256
-set t_Co=256
+" enable 24bit color in TUI
+set termguicolors
 " turn syntax highlighting on
 syntax on
 " turn line numbers on
@@ -83,7 +83,7 @@ hi User1 ctermfg=black ctermbg=grey
 command FormatJSON execute "%!python -m json.tool"
 
 " wrap lines at 140 chars
-set textwidth=120
+set textwidth=91
 
 " set colorcolumn color
 highlight ColorColumn ctermbg=1
@@ -164,6 +164,7 @@ endif
 
 " vim-plug plugin manager
 call plug#begin(plug_dir)
+Plug 'yuqio/vim-darkspace'              " theme
 Plug 'junegunn/vim-plug'                " plugin manager
 Plug 'tpope/vim-commentary'             " gc + movement to comment
 Plug 'bronson/vim-trailing-whitespace'  " fix whitespace error with :FixWhitespace
@@ -181,6 +182,11 @@ else
 endif
 Plug 'Shougo/echodoc.vim'   " show function signature
 call plug#end()
+
+" theme
+colorscheme darkspace
+let g:darkspace_italics=1
+set background=light
 
 " quick-scope settings
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
