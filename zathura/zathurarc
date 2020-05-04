@@ -9,3 +9,4 @@ map c set recolor-keephue "true"
 map t toggle_statusbar
 
 map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
