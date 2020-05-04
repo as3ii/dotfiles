@@ -100,7 +100,7 @@ alias mount_win="sudo mount /dev/nvme0n1p5 /mnt/win"
 alias open="xdg-open"
 alias scrub_start="sudo btrfs scrub start /"
 alias scrub_stat="sudo btrfs scrub status /"
-alias defrag="sudo btrfs filesystem defragment -r -clzo /"
+alias defrag="sudo btrfs filesystem defragment -rf -clzo /"
 alias format="clang-format --style=\"{BasedOnStyle: llvm, IndentWidth: 4}\" -i *.cpp *.h *.cc *.c"
 
 
