@@ -4,8 +4,7 @@ set font "Noto Sans 11"
 set guioptions shv
 set selection-clipboard clipboard
 
-set guioptions none
-map c set recolor-keephue "true"
+map T set guioptions none
 map t toggle_statusbar
 
 map f toggle_fullscreen
