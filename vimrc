@@ -14,6 +14,9 @@ set path+=**
 set wildmenu
 " hit tab to :find by partial match \ :b lets you to autocomplete any open buffer
 
+set spelllang+=it
+set spell
+
 " file browsing tweaks
 let g:netrw_banner=0    " disable annoying banner
 let g:netrw_browse_split=4 " open in prior window
@@ -92,7 +95,7 @@ set colorcolumn=+1
 " if markdown file: disable colorcolumn
 autocmd FileType markdown highlight ColorColumn ctermbg=0
 
-" set reb background when there are more then 120 char in a line
+" set red background when there are more then 120 char in a line
 "autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 
 " Enhanced keyboard mappings
@@ -169,48 +172,57 @@ Plug 'junegunn/vim-plug'                " plugin manager
 Plug 'tpope/vim-commentary'             " gc + movement to comment
 Plug 'bronson/vim-trailing-whitespace'  " fix whitespace error with :FixWhitespace
 Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'unblevable/quick-scope'           " highlight character reachable with f, F, t or T keybinding
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}  " language client
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " needed by LanguageClient_contextMenu
-" completions plugin
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'Shougo/echodoc.vim'   " show function signature
+Plug 'unblevable/quick-scope'           " highlight character reachable with f, F, t or T
+" language server
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/async.vim'
+Plug 'mattn/vim-lsp-settings'
+" auto completions
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" snippet
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 call plug#end()
+
 
 " theme
 colorscheme darkspace
 let g:darkspace_italics=1
 set background=light
 
+
 " quick-scope settings
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
 highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
 
-" LanguageClient config
-let g:LanguageClient_serverCommands = {
-    \'rust': ['rust-analyzer'],
-    \'c': ['clangd'],
-    \'cpp': ['clangd'],
-    \'latex': ['texlab'],
-    \}
-nnoremap <F5> :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <F8> :call LanguageClient_contextMenu()<CR>
 
-" Enable deoplete
-let g:deoplete#enable_at_startup = 1
+" vim-lsp
+let g:lsp_signs_enabled = 1	" enable signs
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼'}
+let g:lsp_signs_hint = {'text': '?'}
+let g:lsp_settings_filetype_rust = 'rust-analyzer'	" change rust language server
 
-" config for echodoc
-"set cmdheight=2
-set noshowmode
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'echo'
+
+" asyncomplete config
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR>    pumvisible() ? "\<C-y>" : "\<CR>"
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+
+
+" vsnip config
+imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+let g:vsnip_snippet_dir = expand('~/.config/nvim/snippet')
+
 
 " fix alacritty mouse issue
 if !has('nvim')
