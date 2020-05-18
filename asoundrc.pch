@@ -23,9 +23,6 @@ pcm.dmixer {
             channels 2
             rate 48000
         }
-        period_time 0
-        period_size 1024
-        buffer_size 4096
         channels 2
     }
 }
@@ -37,9 +34,6 @@ pcm.dmixloopin {
     ipc_key_add_uid true
     slave {
         pcm "hw:Loopback,0,0"
-        period_time 0
-        period_size 1024
-        buffer_size 4096
         channels 2
     }
 }
