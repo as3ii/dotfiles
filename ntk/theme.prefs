@@ -1,0 +1,11 @@
+; FLTK preferences file format 1.0
+; vendor: ntk
+; application: theme
+
+[.]
+
+theme:Clean
+color_scheme:Darker
+background:336860160
+foreground:-252645376
+background2:1684300800
