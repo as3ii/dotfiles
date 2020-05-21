@@ -96,7 +96,7 @@ reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
-run "thunderbird"
+pgrep -x "thunderbird" >/dev/null || thybderbird &
 pgrep -x "keybase" >/dev/null || run_keybase -a &
 run "$TERMINAL --class ncmpcpp -e ncmpcpp 2>/dev/null"
 
