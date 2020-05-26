@@ -91,12 +91,12 @@ bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 
 # late start programs
-pgrep -x "firefox" >/dev/null || firefox &
+pgrep -x "firefox" >/dev/null || apulse firefox &
 reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
-pgrep -x "thunderbird" >/dev/null || thybderbird &
+pgrep -x "thunderbird" >/dev/null || thunderbird &
 pgrep -x "keybase" >/dev/null || run_keybase -a &
 run "$TERMINAL --class ncmpcpp -e ncmpcpp 2>/dev/null"
 
