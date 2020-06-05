@@ -28,7 +28,6 @@ run "nm-applet"                                         # NetworkManager applet
 run "~/.script/wallpaper.sh"                            # wallpaper script
 pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
-run "polybar -r example"                                # bar
 run "xbanish"                                           # hide cursor when typing
 run "optimus-manager-qt"                                # manage multiple GPUs
 run "qjackctl"                                          # server audio
@@ -91,6 +90,7 @@ bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 
 # late start programs
+run "polybar -r example"
 pgrep -x "firefox" >/dev/null || apulse firefox &
 reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
