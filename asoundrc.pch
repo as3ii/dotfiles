@@ -4,12 +4,13 @@
 # use `aplay -l` to see card number/device number
 # doc: https://www.alsa-project.org/main/index.php/Asoundrc
 #      https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html
-#   default -> playback -> multi -> dmix -> soundcard
-#      |                    └----> dmix -> loopback input
+#   default -> playback -> multi -> dmix -> analog output
+#      |                    └-----> dmix -> loopback input
+#      |                    └-----> softvol+dmix -> HDMI 0
 #      └-----> capture -> dsnoop -> soundcard
 #
 
-# mixed audio to soundcard
+# mixed audio to analog output
 pcm.dmixer {
     type dmix
     ipc_key 1024    # must be unique
@@ -18,12 +19,31 @@ pcm.dmixer {
         pcm {
             type hw
             card PCH
+            device 0
             nonblock true
-            format S16_LE
             channels 2
             rate 48000
         }
-        channels 2
+    }
+}
+
+# mixed audio to HDMI 0
+pcm.dmixer_hdmi {
+    type softvol
+    control.name "HDMI"
+    control.card 0
+    slave.pcm {
+        type dmix
+        ipc_key 1034
+        ipc_key_add_uid true
+        slave.pcm {
+            type hw
+            card PCH
+            device 3
+            nonblock true
+            channels 2
+            rate 48000
+        }
     }
 }
 
@@ -57,17 +77,25 @@ pcm.multiple {
             pcm "dmixloopin"
             channels 2
         }
+        slaves.c {
+            pcm "dmixer_hdmi"
+            channels 2
+        }
         bindings {
             0 { slave a channel 0 }
             1 { slave a channel 1 }
             2 { slave b channel 0 }
             3 { slave b channel 1 }
+            4 { slave c channel 0 }
+            5 { slave c channel 1 }
         }
     }
     ttable.0.0 1
     ttable.1.1 1
     ttable.0.2 1
     ttable.1.3 1
+    ttable.0.4 1
+    ttable.1.5 1
 }
 
 # multiplex audio capture
