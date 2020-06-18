@@ -1,49 +1,72 @@
-### BSPCWM ###
+### SXHKDRC ###
+
+# make sxhkd reload its configuration files
+super + Escape
+	pkill -USR1 -x sxhkd
 
 # kill focused window
 super + shift + q
     bspc node -c
 
 # quit/restart bscpwm
-super + shift + {e,r}
-    bspc {quit,wm -r}
+super + shift + r
+    bspc wm -r
+
+super + shift + e
+    ~/.script/prompt 'Do you really want to close bspwm?' 'bspc quit'
 
 
 ### STATE ###
 
 # toggle fullscreen
 super + f
-    bspc node -t ~fullscreen
+    bspc node focused.fullscreen -t tiled || bspc node -t fullscreen
 
 # toggle floating
 super + shift + space
-    bspc node -t ~floating
+    bspc node focused.tiled -t floating || bspc node -t tiled
 
-# set tiled
+# toggle pseudo_tiled
+super + alt + space
+    bspc node focused.tiled -t pseudo_tiled || bspc node -t tiled
+
+### LAYOUT ###
+
+# toggle layout
 super + space
-    bspc node -t tiled
+    bspc desktop -l next
+
+super + r
+    bspc node @parent -R 90
+
+super + alt + {Left,Down,Up,Right}
+    bspc node -z {left -10 0,bottom 0 10,top 0 -10,right 10 0}
 
 
 ### FOCUS ###
 
 # focus (shift=swap) the node in the given direction
 super + {_,shift + }{Left,Down,Up,Right}
-    bspc node -{f,s} {west,south,north,east}
+    ~/.script/bspcwindow.sh -{f,s} {west,south,north,east} > /dev/null
 
 # focus or send to the given workspace
 super + {_,shift + }{1-9,0}
     bspc {desktop -f,node -d} focused:'^{1-9,10}'
 
+super + s
+    bspc monitor -f next
+
+super + t
+    bspc node -m next --follow
+
+super + shift + t
+    bspc node -m next
 
 ## APPLICATION ###
 
 # open terminal
 super + Return
     alacritty
-
-# open terminal with tabbed
-super + shift + Return
-    tabbed -c alacritty --embed
 
 # open dmenu
 super + d
@@ -57,16 +80,9 @@ super + shift + d
 Print
     flameshot gui
 
-
-# Add focused window to a tabbed instance in given direction
-super + t; {Left,Down,Up,Right}
-    ~/.script/tabc.sh $(bspc query -N -n {west,south,north,east}) add $(bspc query -N -n focused)
-
-# Remove one tab from tabbed
-super + t; r
-    tabbed=$(bspc query -N -n focused); \
-    child=$(~/.script/tabc.sh $tabbed list | head -n1); \
-    ~/.script/tabc.sh $tabbed remove $child
+# open mpv from
+super + e
+    ~/.script/dmenu_mpv.sh
 
 
 ### DISPLAY/AUDIO ###
