@@ -44,4 +44,6 @@ export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export GOPATH=$HOME/prog/go
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ansible/ansible.cfg"
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
-
+export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
+export XINITRC="$XDG_CONFIG_HOME"/xinitrc
+export HISTFILE="${XDG_CACHE_HOME}/bash_history"

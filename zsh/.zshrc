@@ -34,7 +34,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zmodload zsh/complist
-compinit
+compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_BERSION
 
 # set fixed normal mode
 bindkey -e
