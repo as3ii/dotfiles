@@ -15,7 +15,7 @@ setopt histignorealldups    # ignore duplicates
 setopt histignorespace      # ignore line starting with space
 
 setopt auto_cd          # cd if the command is a directory
-setopt longlistjobs     # display PId when suspending process
+setopt longlistjobs     # display PID when suspending process
 setopt notify           # report status of background jobs
 setopt hash_list_all    # hash first the entire command path
 setopt nohup            # don't sent SIGHUP to background process when the shell exits
@@ -25,15 +25,6 @@ setopt pushd_ignore_dups
 setopt noglobdots       # * not match dotfiles
 setopt noshwordsplit    # zsh style word splitting
 setopt unset            # don't error out when unset parameters are used
-
-# support colors in less
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
 
 
 # automatic completions
@@ -46,11 +37,11 @@ zmodload zsh/complist
 compinit
 
 # set fixed normal mode
-set -o emacs
+bindkey -e
 # Keybinding:
 autoload zkbd
-[[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]] && zkbd
-[[ -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]] && source ${ZDOTDIR:-$HOME}/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+[[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM ]] && zkbd
+[[ -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM ]] && source ${ZDOTDIR:-$HOME}/.zkbd/$TERM
 [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
 [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
@@ -63,7 +54,7 @@ autoload zkbd
 
 # Plugin manager
 source <(antibody init)
-antibody bundle < ~/.zsh_plugins.txt
+antibody bundle < "${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # functions
@@ -87,6 +78,7 @@ alias ls="exa --classify"
 alias ll="exa --classify --group --long --header --git"
 alias la="exa --classify --all"
 alias sl="ls"
+alias :q="exit"
 alias cp="cp -i"
 alias vim="nvim"
 alias v="vim"
