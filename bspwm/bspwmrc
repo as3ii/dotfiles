@@ -51,12 +51,15 @@ ws9="IX"
 ws10="X"
 
 ### monitor settings ###
-if xrandr -q | grep HDML1 | awk '{print $2}' | grep -q connected; then
-    xrandr --output HDMI1 --above eDP1
+xrandr --output eDP1 --primary 2>&1 | grep warning || \
+    xrandr --output "$(xrandr --listmonitors | awk '{if(NF>2){print $4; exit}}')" --primary
+if $(xrandr -q | grep -qi "HDMI1 connected"); then
+    xrandr --output HDMI1 --right-of eDP1
+    bspc monitor eDP1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
     bspc monitor HDMI1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+else
+    bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 fi
-xrandr --output eDP1 --primary 2>&1 | grep warning || xrandr --output "$(xrandr --listmonitors | awk '{printf $4}')" --primary
-bspc monitor "$(bspc query --names -M)" -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 
 
 ## WM config ##
@@ -72,10 +75,15 @@ bspc config borderless_monocle            true
 bspc config gapless_monocle               true
 bspc config focus_follows_pointer         true
 bspc config remove_disabled_monitors      true
+bspc config remove_unplugged_monitors     true
 bspc config merge_overlapping_monitors    true
+bspc config pointer_modifier              mod4
+bspc config pointer_action1               move
+bspc config pointer_action2               resize_corner
 
 
 # default workspace # xprop -> WM_CLASS(string) -> second argument
+bspc rule -r "*"
 bspc rule -a "firefox" desktop=$ws3
 bspc rule -a "Tor Browser" desktop=$ws3
 bspc rule -a "TelegramDesktop" desktop=$ws4
@@ -90,7 +98,10 @@ bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 
 # late start programs
-run "polybar -r example"
+killall polybar
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+    MONITOR=$m polybar --reload example &
+done
 pgrep -x "firefox" >/dev/null || apulse firefox &
 reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
@@ -98,5 +109,5 @@ run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
 pgrep -x "thunderbird" >/dev/null || thunderbird &
 pgrep -x "keybase" >/dev/null || run_keybase -a &
-run "$TERMINAL --class ncmpcpp -e ncmpcpp 2>/dev/null"
+run "$TERMINAL --class ncmpcpp -e 'ncmpcpp 2>/dev/null'"
 
