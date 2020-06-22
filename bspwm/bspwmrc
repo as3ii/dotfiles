@@ -20,24 +20,6 @@ reload() {
     $1 &
 }
 
-### early start programs ###
-reload "sxhkd"                                          # keybindings
-reload "picom --daemon"                                 # compositor
-reload "dunst"                                          # notification daemon
-run "nm-applet"                                         # NetworkManager applet
-run "~/.script/wallpaper.sh"                            # wallpaper script
-pgrep -x "aa-notify" >/dev/null || \
-    "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
-run "xbanish"                                           # hide cursor when typing
-run "optimus-manager-qt"                                # manage multiple GPUs
-run "qjackctl"                                          # server audio
-reload "mpd"                                            # music server
-reload "mpd-mpris"
-
-# keyboard settings
-setxkbmap it
-numlockx on
-
 
 ws1="I"
 ws2="II"
@@ -60,6 +42,26 @@ if $(xrandr -q | grep -qi "HDMI1 connected"); then
 else
     bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 fi
+
+
+### early start programs ###
+reload "sxhkd"                                          # keybindings
+reload "picom --daemon"                                 # compositor
+reload "dunst"                                          # notification daemon
+run "nm-applet"                                         # NetworkManager applet
+run "~/.script/wallpaper.sh"                            # wallpaper script
+pgrep -x "aa-notify" >/dev/null || \
+    "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
+run "xbanish"                                           # hide cursor when typing
+run "optimus-manager-qt"                                # manage multiple GPUs
+run "qjackctl"                                          # server audio
+reload "mpd"                                            # music server
+reload "mpd-mpris"
+
+
+# keyboard settings
+setxkbmap it
+numlockx on
 
 
 ## WM config ##
@@ -109,5 +111,5 @@ run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
 pgrep -x "thunderbird" >/dev/null || thunderbird &
 pgrep -x "keybase" >/dev/null || run_keybase -a &
-run "$TERMINAL --class ncmpcpp -e 'ncmpcpp 2>/dev/null'"
+pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
 
