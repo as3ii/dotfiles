@@ -46,7 +46,11 @@ fi
 
 ### early start programs ###
 reload "sxhkd"                                          # keybindings
-reload "picom --daemon"                                 # compositor
+if grep "1" /sys/class/power_supply/ADP*/online; then
+    reload "picom --daemon"
+else
+    pkill -fx "picom --daemon"
+fi
 reload "dunst"                                          # notification daemon
 run "nm-applet"                                         # NetworkManager applet
 run "~/.script/wallpaper.sh"                            # wallpaper script
