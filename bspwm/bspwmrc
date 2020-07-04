@@ -3,6 +3,7 @@
 
 TERMINAL="alacritty"    # terminal emulator command
 TERMINALC="Alacritty"   # terminal emulator class
+source "$HOME/.config/zsh/.zshenv"
 
 # exec function: run only if not allready running
 run() {
@@ -52,8 +53,7 @@ else
     pkill -fx "picom --daemon"
 fi
 reload "dunst"                                          # notification daemon
-run "nm-applet"                                         # NetworkManager applet
-run "~/.script/wallpaper.sh"                            # wallpaper script
+run "$HOME/.script/wallpaper.sh"                            # wallpaper script
 pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
 run "xbanish"                                           # hide cursor when typing
@@ -104,7 +104,7 @@ bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 
 # late start programs
-killall polybar
+killall -q polybar
 for m in $(polybar --list-monitors | cut -d":" -f1); do
     MONITOR=$m polybar --reload example &
 done
