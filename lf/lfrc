@@ -126,5 +126,5 @@ map gv cd /mnt/volume
 map gs cd ~/.script
 map gpc cd ~/Pictures
 map gpr cd ~/prog
-map uni cd /mnt/volume/UNI
+map gu cd /mnt/volume/UNI
 
