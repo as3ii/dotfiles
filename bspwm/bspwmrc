@@ -60,8 +60,17 @@ run "xbanish"                                           # hide cursor when typin
 run "optimus-manager-qt"                                # manage multiple GPUs
 run "qjackctl"                                          # server audio
 reload "mpd"                                            # music server
-reload "mpd-mpris"
-
+# launch mpd-mpris with automatic restart when crash
+if pgrep -fx "mpd-mpris" >/dev/null; then
+    PID="$(pgrep -fx "mpd-mpris")"
+    timeout -k 3 2 kill -TERM $PID || \
+        timeout -k 3 2 kill -KILL $PID
+    sleep 1
+fi
+while true; do
+    mpd-mpris
+    sleep 1
+done &
 
 # keyboard settings
 setxkbmap it
