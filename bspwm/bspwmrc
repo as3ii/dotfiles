@@ -59,6 +59,7 @@ pgrep -x "aa-notify" >/dev/null || \
 run "xbanish"                                           # hide cursor when typing
 run "optimus-manager-qt"                                # manage multiple GPUs
 run "qjackctl"                                          # server audio
+run "udiskie -qtF"                  # removable media's automounter
 reload "mpd"                                            # music server
 # launch mpd-mpris with automatic restart when crash
 if pgrep -fx "mpd-mpris" >/dev/null; then
