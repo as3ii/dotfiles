@@ -1,5 +1,5 @@
 # basic settings
-set preview false
+set preview true
 set previewer ~/.script/preview
 set hidden false
 set color256 true
@@ -8,6 +8,7 @@ set icons true
 set ignorecase true
 set shell sh
 set shellopts '-eu'
+set tabstop 4
 
 # functions
 cmd open ${{
@@ -113,9 +114,10 @@ map '"'
 # keymap functions
 map <enter> open
 map <bs2> updir
-map e ${{$TERMINAL -e $EDITOR $f &}}
+map e $$TERMINAL -e $EDITOR $f &
 map H set hidden!
-map R reload && refresh
+map R :reload; redraw
+map <delete> delete
 
 map gc cd ~/.config
 map ge cd /etc
@@ -127,4 +129,5 @@ map gs cd ~/.script
 map gpc cd ~/Pictures
 map gpr cd ~/prog
 map gu cd /mnt/volume/UNI
+map gm $lf -remote "send $id cd /run/media/$USER"
 
