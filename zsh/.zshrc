@@ -73,6 +73,7 @@ sleepuntil() {
 }
 
 # aliases
+alias grep="grep --color=auto"
 alias tree="exa --tree --level=3"
 alias ls="exa --classify"
 alias ll="exa --classify --group --long --header --git"
