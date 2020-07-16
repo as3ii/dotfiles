@@ -48,9 +48,9 @@ fi
 ### early start programs ###
 reload "sxhkd"                                          # keybindings
 if grep "1" /sys/class/power_supply/ADP*/online; then
-    reload "picom --daemon"
+    reload "picom --daemon --experimental-backends"
 else
-    pkill -fx "picom --daemon"
+    pkill -fx "picom --daemon --experimental-backends"
 fi
 reload "dunst"                                          # notification daemon
 run "$HOME/.script/wallpaper.sh"                            # wallpaper script
@@ -58,7 +58,7 @@ pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
 run "xbanish"                                           # hide cursor when typing
 run "optimus-manager-qt"                                # manage multiple GPUs
-run "qjackctl"                                          # server audio
+#run "qjackctl"                                          # server audio
 run "udiskie -qtF"                  # removable media's automounter
 reload "mpd"                                            # music server
 # launch mpd-mpris with automatic restart when crash
