@@ -53,25 +53,27 @@ else
     pkill -fx "picom --daemon --experimental-backends"
 fi
 reload "dunst"                                          # notification daemon
-run "$HOME/.script/wallpaper.sh"                            # wallpaper script
+pgrep -x "wallpaper.sh" || $HOME/.script/wallpaper.sh & # wallpaper script
 pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
 run "xbanish"                                           # hide cursor when typing
 run "optimus-manager-qt"                                # manage multiple GPUs
 #run "qjackctl"                                          # server audio
-run "udiskie -qtF"                  # removable media's automounter
+pgrep -x "udiskie" >/dev/null || udiskie -qtF &         # removable media's automounter
 reload "mpd"                                            # music server
 # launch mpd-mpris with automatic restart when crash
 if pgrep -fx "mpd-mpris" >/dev/null; then
     PID="$(pgrep -fx "mpd-mpris")"
-    timeout -k 3 2 kill -TERM $PID || \
-        timeout -k 3 2 kill -KILL $PID
+    PPID="$(cat "/proc/$PID/status" | cut -f2)"
+    timeout -k 3 2 kill -TERM $PPID || \
+        timeout -k 3 2 kill -KILL $PPID
     sleep 1
+else
+    while true; do
+        mpd-mpris
+        sleep 1
+    done &
 fi
-while true; do
-    mpd-mpris
-    sleep 1
-done &
 
 # keyboard settings
 setxkbmap it
