@@ -56,6 +56,8 @@ autoload zkbd
 source <(antibody init)
 antibody bundle < "${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
 source /usr/share/doc/pkgfile/command-not-found.zsh
+[[ -s "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/grc.zsh" ]] && \
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/grc.zsh"
 
 # functions
 sleepuntil() {
@@ -74,6 +76,7 @@ sleepuntil() {
 
 # aliases
 alias grep="grep --color=auto"
+alias ip="ip -c"
 alias tree="exa --tree --level=3"
 alias ls="exa --classify"
 alias ll="exa --classify --group --long --header --git"
