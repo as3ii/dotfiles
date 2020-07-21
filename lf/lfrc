@@ -129,9 +129,10 @@ map gb cd /boot
 map gh cd ~
 map gd cd ~/Downloads
 map gv cd /mnt/volume
+map ga cd /mnt/archive
 map gs cd ~/.script
 map gpc cd ~/Pictures
 map gpr cd ~/prog
-map gu cd /mnt/volume/UNI
+map gu cd ~/UNI
 map gm $lf -remote "send $id cd /run/media/$USER"
 
