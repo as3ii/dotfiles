@@ -113,7 +113,7 @@ bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
 bspc rule -a "Keybase" desktop=$ws10
 bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
-
+bspc rule -a "KVIrc" desktop=$ws6
 
 # late start programs
 killall -q polybar
@@ -128,4 +128,4 @@ run "$TERMINAL --class nmon -e nmon"
 pgrep -x "thunderbird" >/dev/null || thunderbird &
 pgrep -x "keybase" >/dev/null || run_keybase -a &
 pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
-
+run "kvirc"
