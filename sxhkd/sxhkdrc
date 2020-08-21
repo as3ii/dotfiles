@@ -84,6 +84,9 @@ Print
 super + e
     ~/.script/dmenu_mpv.sh
 
+super + z
+    link="$(echo "$(xclip -o -sel clip)" | dmenu -i -fn 'Monospace 10')"; [ -n "$link" ] && setsid zathura "$link" &
+
 
 ### DISPLAY/AUDIO ###
 
