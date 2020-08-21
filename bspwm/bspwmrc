@@ -33,11 +33,35 @@ ws8="VIII"
 ws9="IX"
 ws10="X"
 
+
+## WM config ##
+bspc config border_width                  2
+bspc config window_gap                    0
+bspc config top_padding                   26
+bspc config bottom_padding                0
+bspc config left_padding                  0
+bspc config right_padding                 0
+bspc config single_monocle                false
+bspc config split_ratio                   0.50
+bspc config borderless_monocle            true
+bspc config gapless_monocle               true
+bspc config focus_follows_pointer         true
+bspc config remove_disabled_monitors      true
+bspc config remove_unplugged_monitors     true
+bspc config merge_overlapping_monitors    true
+bspc config pointer_modifier              mod4
+bspc config pointer_action1               move
+bspc config pointer_action2               resize_corner
+
+
 ### monitor settings ###
+xrandr --output eDP1 --auto
 xrandr --output eDP1 --primary 2>&1 | grep warning || \
     xrandr --output "$(xrandr --listmonitors | awk '{if(NF>2){print $4; exit}}')" --primary
 if $(xrandr -q | grep -qi "HDMI1 connected"); then
-    xrandr --output HDMI1 --right-of eDP1
+    xrandr --output HDMI1 --auto
+    xrandr --output HDMI1 --left-of eDP1
+    bspc wm -O eDP1 HDMI1
     bspc monitor eDP1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
     bspc monitor HDMI1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 else
@@ -79,27 +103,6 @@ fi
 setxkbmap it
 numlockx on
 
-
-## WM config ##
-bspc config border_width                  2
-bspc config window_gap                    0
-bspc config top_padding                   26
-bspc config bottom_padding                0
-bspc config left_padding                  0
-bspc config right_padding                 0
-bspc config single_monocle                false
-bspc config split_ratio                   0.50
-bspc config borderless_monocle            true
-bspc config gapless_monocle               true
-bspc config focus_follows_pointer         true
-bspc config remove_disabled_monitors      true
-bspc config remove_unplugged_monitors     true
-bspc config merge_overlapping_monitors    true
-bspc config pointer_modifier              mod4
-bspc config pointer_action1               move
-bspc config pointer_action2               resize_corner
-
-
 # default workspace # xprop -> WM_CLASS(string) -> second argument
 bspc rule -r "*"
 bspc rule -a "firefox" desktop=$ws3
@@ -117,7 +120,7 @@ bspc rule -a "KVIrc" desktop=$ws6
 
 # late start programs
 killall -q polybar
-for m in $(polybar --list-monitors | cut -d":" -f1); do
+for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
     MONITOR=$m polybar --reload example &
 done
 pgrep -x "firefox" >/dev/null || apulse firefox &
@@ -126,6 +129,6 @@ run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
 pgrep -x "thunderbird" >/dev/null || thunderbird &
-pgrep -x "keybase" >/dev/null || run_keybase -a &
+#pgrep -x "keybase" >/dev/null || run_keybase -a &
 pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
-run "kvirc"
+#run "kvirc"
