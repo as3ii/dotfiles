@@ -53,9 +53,13 @@ colors:
         cyan:    '0x00ffff'
         white:   '0xffffff'
 
-
 selection:
     save_to_clipboard: true
+    # Vi mode cursor style
+    #
+    # If the vi mode cursor style is `None` or not specified, it will fall back to
+    # the style of the active value of the normal cursor.
+    vi_mode_style: Block
 
 live_config_reload: false
 
