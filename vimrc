@@ -85,13 +85,13 @@ hi User1 ctermfg=black ctermbg=grey
 " format json file
 command FormatJSON execute "%!python -m json.tool"
 
-" wrap lines at 140 chars
+" wrap lines at 90 chars
 set textwidth=91
 
 " set colorcolumn color
 highlight ColorColumn ctermbg=1
 " set column of colorcolumn
-set colorcolumn=+1
+set colorcolumn=81
 " if markdown file: disable colorcolumn
 autocmd FileType markdown highlight ColorColumn ctermbg=0
 
