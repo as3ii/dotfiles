@@ -78,7 +78,7 @@ super + shift + d
 
 # screenshot
 Print
-    flameshot gui
+    pgrep flameshot || flameshot&; flameshot gui
 
 # open mpv from
 super + e
