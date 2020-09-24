@@ -55,14 +55,22 @@ bspc config pointer_action2               resize_corner
 
 
 ### monitor settings ###
-if $(xrandr -q | grep -qi "HDMI1 connected"); then
-    xrandr --output eDP1 --auto --primary --output HDMI1 --auto --left-of eDP1
-    xrandr --dpi 100
-    bspc wm -O eDP1 HDMI1
-    bspc monitor eDP1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
-    bspc monitor HDMI1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+if xrandr --listproviders | grep -qi "NVIDIA-0"; then
+    monitor_laptop="eDP-1-1"
+    monitor_hdmi="HDMI-1-1"
 else
-    xrandr --output eDP1 --auto --primary
+    monitor_laptop="eDP1"
+    monitor_hdmi="HDMI1"
+fi
+if xrandr -q | grep -qi "$monitor_hdmi connected"; then
+    xrandr --output $monitor_laptop --auto --primary \
+        --output $monitor_hdmi --auto --left-of $monitor_laptop
+    xrandr --dpi 100
+    bspc wm -O $monitor_laptop $monitor_hdmi
+    bspc monitor $monitor_laptop -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+    bspc monitor $monitor_hdmi -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+else
+    xrandr --output $monitor_laptop --auto --primary
     bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 fi
 
@@ -86,7 +94,7 @@ reload "mpd"                                            # music server
 # launch mpd-mpris with automatic restart when crash
 if pgrep -fx "mpd-mpris" >/dev/null; then
     PID="$(pgrep -fx "mpd-mpris")"
-    PPID="$(cat "/proc/$PID/status" | cut -f2)"
+    PPID="$(cut -f2 "/proc/$PID/status")"
     timeout -k 3 2 kill -TERM $PPID || \
         timeout -k 3 2 kill -KILL $PPID
     sleep 1
