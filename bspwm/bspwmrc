@@ -88,6 +88,7 @@ pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
 run "xbanish"                                           # hide cursor when typing
 run "optimus-manager-qt"                                # manage multiple GPUs
+run "clipmenud"
 #run "qjackctl"                                          # server audio
 pgrep -x "udiskie" >/dev/null || udiskie -qtF &         # removable media's automounter
 reload "mpd"                                            # music server
