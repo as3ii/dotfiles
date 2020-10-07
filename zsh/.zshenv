@@ -25,6 +25,12 @@ export GTK_THEME=Adwaita:dark
 export NMON=cdnmt
 export FZF_DEFAULT_OPTS=-e
 
+export MOZ_X11_EGL=1
+
+# clipmenu
+export CM_SELECTIONS="clipboard"
+export CM_MAX_CLIPS=10
+
 # ~/ Clean-up
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"

@@ -100,5 +100,6 @@ alias scrub_stat="sudo btrfs scrub status /"
 alias defrag="sudo btrfs filesystem defragment -rf -czstd /"
 alias format="clang-format --style=\"{BasedOnStyle: llvm, IndentWidth: 4}\" -i *.cpp *.h *.cc *.c"
 
+eval $(thefuck --alias)
 
 eval $(starship init zsh)
