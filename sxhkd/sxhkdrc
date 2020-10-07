@@ -99,7 +99,11 @@ XF86MonBrightnessDown
 # Audio control with notification
 XF86AudioRaiseVolume
     ~/.script/volume.sh up > /dev/null
+alt + Up
+    ~/.script/volume.sh up > /dev/null
 XF86AudioLowerVolume
+    ~/.script/volume.sh down > /dev/null
+alt + Down
     ~/.script/volume.sh down > /dev/null
 XF86AudioMute
     ~/.script/volume.sh toggle > /dev/null
