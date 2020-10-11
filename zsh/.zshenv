@@ -9,6 +9,8 @@ export PAGER="less"
 export WM="bspwm"
 export READER="zathura"
 
+export PATH="$PATH:$HOME/.local/bin"
+
 # color in less
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[01;31m'
