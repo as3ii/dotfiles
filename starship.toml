@@ -1,11 +1,11 @@
-# Print newline at the start of the prompt
+# required starship 0.45.0 or newer
+
 add_newline = true
 
-# replace > with ->
 [character]
-symbol = "➜"
-error_symbol = "✗"
-use_symbol_for_status = true
+success_symbol = "[❯](bold green)"
+error_symbol = "[✗](bold red)"
+vicmd_symbol = "[V](bold green)"
 
 
 [cmd_duration]
@@ -14,13 +14,14 @@ show_milliseconds = true
 
 
 [directory]
-truncate_length = 5
+truncate_length = 3
+truncate_symbol = "…/"
 
 
 [battery]
-full_symbol = "☻ "
-charging_symbol = "⚡️"
-discharging_symbol = "🔋"
+full_symbol = " "
+charging_symbol = " "
+discharging_symbol = " "
 disabled = false
 
 [[battery.display]]
@@ -40,17 +41,12 @@ style = "bold green"
 show_percentage = false
 show_swap = true
 threshold = -1
-symbol = "🔀 "
+symbol = "🧠 "
 style = "bold dimmed green"
 disabled = false
 
 
-[git_status]
-show_sync_count = true
-staged_count.enabled = true
-
-
-[kubernetes]
+[docker_context]
 disabled = false
 
 
@@ -65,3 +61,9 @@ show_always = true
 [package]
 disabled = true
 
+
+[status]
+disabled = false
+
+[git_status]
+disabled = true
