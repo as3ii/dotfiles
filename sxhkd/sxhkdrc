@@ -93,7 +93,11 @@ super + z
 # Screen Brightness controls with notification
 XF86MonBrightnessUp
     light -A 5 && notify-send -u low -t 500 'brightness up'
+alt + shift + Up
+    light -A 5 && notify-send -u low -t 500 'brightness up'
 XF86MonBrightnessDown
+    light -U 5 && notify-send -u low -t 500 'brightness downn'
+alt + shift + Down
     light -U 5 && notify-send -u low -t 500 'brightness downn'
 
 # Audio control with notification
