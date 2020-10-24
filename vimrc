@@ -95,6 +95,12 @@ set colorcolumn=81
 " if markdown file: disable colorcolumn
 autocmd FileType markdown highlight ColorColumn ctermbg=0
 
+" enable persistent undo
+if has("persistent_undo")
+    set undodir=$XDG_DATA_HOME/vim/undodir
+    set undofile
+endif
+
 " set red background when there are more then 120 char in a line
 "autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 
@@ -173,6 +179,7 @@ Plug 'tpope/vim-commentary'             " gc + movement to comment
 Plug 'bronson/vim-trailing-whitespace'  " fix whitespace error with :FixWhitespace
 Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'unblevable/quick-scope'           " highlight character reachable with f, F, t or T
+Plug 'mbbill/undotree'
 " language server
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/async.vim'
