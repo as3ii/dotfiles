@@ -12,11 +12,13 @@ set tabstop 4
 
 # functions
 cmd open ${{
-    case $(file --mime-type "$f" -bL) in
-        text/*|application/json) $EDITOR "$fx";;
-        video/*|application/pdf) setsid xdg-open "$f" > /dev/null 2>&1 &;;
-        application/x-dosexec) setsid wine "$f" > /dev/null 2>&1 &;;
-        *) for f in "$fx"; do setsid xdg-open "$f" > /dev/null 2>&1 & done;;
+    case "$f" in
+        *.cue) setsid mpv "$f" > /dev/null 2>&1 &;;
+        *) case $(file --mime-type "$f" -bL) in
+            text/*|application/json) $EDITOR "$fx";;
+            application/x-dosexec) setsid wine "$f" > /dev/null 2>&1 &;;
+            *) for f in "$fx"; do setsid xdg-open "$f" > /dev/null 2>&1 & done;;
+        esac
     esac
 }}
 
@@ -53,7 +55,7 @@ cmd paste &{{
 cmd bulk-rename ${{
     old=$(mktemp)
     new=$(mktemp)
-    [ -n $fs ] && fs=$(ls)
+    [ -n $fx ] && fs=$(ls)
     printf "$fs\n" > $old
     printf "$fs\n" > $new
     $EDITOR $new
@@ -106,9 +108,16 @@ cmd term ${{
     $TERMINAL &
 }}
 
-cmd du %du --si "$f"
 
-cmd df !df --si "$f"
+cmd trash ${{
+    dir=~/.local/share/Trash
+    mkdir -p "$dir"
+    mv -t "$dir" "$fx"
+}}
+
+cmd du !ncdu -r --exclude-kernfs --si "${f%/*}"
+
+cmd df !df --si
 
 # disable some default keymap
 map m
@@ -121,16 +130,16 @@ map <bs2> updir
 map e $$TERMINAL -e $EDITOR "$f" &
 map H set hidden!
 map R :reload; redraw
-map <delete> delete
+map <delete> :trash; reload; reload
 
 map gc cd ~/.config
 map ge cd /etc
 map gb cd /boot
 map gh cd ~
 map gd cd ~/Downloads
-map gv cd /mnt/volume
 map ga cd /mnt/archive
 map gs cd ~/.script
+map gt cd ~/.local/share/Trash
 map gpc cd ~/Pictures
 map gpr cd ~/prog
 map gu cd ~/UNI
