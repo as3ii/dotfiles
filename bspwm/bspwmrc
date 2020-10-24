@@ -113,9 +113,8 @@ numlockx on
 # default workspace # xprop -> WM_CLASS(string) -> second argument
 bspc rule -r "*"
 bspc rule -a "firefox" desktop=$ws3
-bspc rule -a "Tor Browser" desktop=$ws3
 bspc rule -a "TelegramDesktop" desktop=$ws4
-bspc rule -a "mpv" desktop=$ws5
+#bspc rule -a "mpv" desktop=$ws5
 bspc rule -a "qBittorrent" desktop=$ws6
 bspc rule -a "Thunderbird" desktop=$ws7
 bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
@@ -135,6 +134,8 @@ reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
+run "syncthing -no-browser -logflags=3 \
+    -logfile=${XDG_DATA_HOME:-HOME/.local/share}/syncthing.log"
 pgrep -x "thunderbird" >/dev/null || thunderbird &
 #pgrep -x "keybase" >/dev/null || run_keybase -a &
 pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
