@@ -99,6 +99,7 @@ alias scrub_start="sudo btrfs scrub start /"
 alias scrub_stat="sudo btrfs scrub status /"
 alias defrag="sudo btrfs filesystem defragment -rf -czstd /"
 alias format="clang-format --style=\"{BasedOnStyle: llvm, IndentWidth: 4}\" -i *.cpp *.h *.cc *.c"
+alias ssh="TERM=xterm-256color ssh"
 
 eval $(thefuck --alias)
 
