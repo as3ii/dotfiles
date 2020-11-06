@@ -25,12 +25,10 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
-[bar/example]
+[bar/main]
 monitor = ${env:MONITOR:eDP1}
 width = 100%
 height = 26
-;offset-x = 1%
-;offset-y = 1%
 radius = 0.0
 fixed-center = false
 
@@ -54,24 +52,54 @@ font-1 = HackNerdFont:pizelsize=12;
 font-2 = NotoColorEmoji:scale=12:fontformat=truetype;
 
 modules-left = bspwm xwindow
-;modules-center = xwindow
 modules-right = filesystem backlight-acpi alsa xkeyboard memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 1
-;tray-background = #0063ff
 tray-maxsize = 20
 
 wm-restack = bspwm
-;wm-restack = i3
-
-;override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+[bar/secondary]
+monitor = ${env:MONITOR:HDMI1}
+width = 100%
+height = 26
+radius = 0.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = NotoMono:pixelsize=12;
+font-1 = HackNerdFont:pizelsize=12;
+font-2 = NotoColorEmoji:scale=12:fontformat=truetype;
+
+modules-left = bspwm xwindow
+modules-right = filesystem backlight-acpi alsa xkeyboard memory cpu wlan eth battery temperature date
+
+wm-restack = bspwm
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
