@@ -1,0 +1,6 @@
+#!/bin/sh
+sudo /usr/bin/prime-switch
+/usr/bin/prime-offload
+xinput set-prop 'pointer:Logitech MX Master 3' 'libinput Accel Speed' '0.8'
+bspwm
+
