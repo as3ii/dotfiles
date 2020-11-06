@@ -13,9 +13,10 @@ set tabstop 4
 # functions
 cmd open ${{
     case "$f" in
-        *.cue) setsid mpv "$f" > /dev/null 2>&1 &;;
+        *.cue|*.m3u) setsid mpv "$f" > /dev/null 2>&1 &;;
         *) case $(file --mime-type "$f" -bL) in
             text/*|application/json) $EDITOR "$fx";;
+            image/*) sxiv "${f%/*}" > /dev/null 2>&1 &;;
             application/x-dosexec) setsid wine "$f" > /dev/null 2>&1 &;;
             *) for f in "$fx"; do setsid xdg-open "$f" > /dev/null 2>&1 & done;;
         esac
@@ -55,9 +56,9 @@ cmd paste &{{
 cmd bulk-rename ${{
     old=$(mktemp)
     new=$(mktemp)
-    [ -n $fx ] && fs=$(ls)
-    printf "$fs\n" > $old
-    printf "$fs\n" > $new
+    [ -n $fx ] && fx=$(ls)
+    printf "$fx\n" > $old
+    printf "$fx\n" > $new
     $EDITOR $new
     [ $(cat $new | wc -l) -ne $(cat $old | wc -l) ] && exit
     paste $old $new | while read names; do
@@ -112,7 +113,9 @@ cmd term ${{
 cmd trash ${{
     dir=~/.local/share/Trash
     mkdir -p "$dir"
-    mv -t "$dir" "$fx"
+    for f in "$fx"; do
+        mv -t "$dir" "$f"
+    fi
 }}
 
 cmd du !ncdu -r --exclude-kernfs --si "${f%/*}"
