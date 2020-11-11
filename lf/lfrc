@@ -115,7 +115,7 @@ cmd trash ${{
     mkdir -p "$dir"
     for f in "$fx"; do
         mv -t "$dir" "$f"
-    fi
+    done
 }}
 
 cmd du !ncdu -r --exclude-kernfs --si "${f%/*}"

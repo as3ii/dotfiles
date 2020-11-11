@@ -3,7 +3,7 @@
 
 TERMINAL="alacritty"    # terminal emulator command
 TERMINALC="Alacritty"   # terminal emulator class
-source "$HOME/.config/zsh/.zshenv"
+./"$HOME"/.config/zsh/.zshenv
 
 # exec function: run only if not allready running
 run() {
@@ -77,13 +77,13 @@ fi
 
 ### early start programs ###
 reload "sxhkd"                                          # keybindings
-if grep "1" /sys/class/power_supply/ADP*/online; then
+if grep -q "1" /sys/class/power_supply/ADP*/online; then
     reload "picom --daemon --experimental-backends"
 else
     pkill -fx "picom --daemon --experimental-backends"
 fi
 reload "dunst"                                          # notification daemon
-pgrep -x "wallpaper.sh" || $HOME/.script/wallpaper.sh & # wallpaper script
+pgrep -x "wallpaper.sh" || "$HOME"/.script/wallpaper.sh & # wallpaper script
 pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
 run "xbanish"                                           # hide cursor when typing
@@ -96,8 +96,8 @@ reload "mpd"                                            # music server
 if pgrep -fx "mpd-mpris" >/dev/null; then
     PID="$(pgrep -fx "mpd-mpris")"
     PPID="$(cut -f2 "/proc/$PID/status")"
-    timeout -k 3 2 kill -TERM $PPID || \
-        timeout -k 3 2 kill -KILL $PPID
+    timeout -k 3 2 kill -TERM "$PPID" || \
+        timeout -k 3 2 kill -KILL "$PPID"
     sleep 1
 else
     while true; do
@@ -129,7 +129,7 @@ killall -q polybar
 MONITOR=$monitor_laptop polybar --reload main &
 if xrandr -q | grep -qi "$monitor_hdmi connected"; then
     MONITOR=$monitor_hdmi polybar --reload secondary &
-else
+fi
 pgrep -x "firefox" >/dev/null || apulse firefox &
 reload "telegram-desktop"
 run "$TERMINAL --class alsamixer -e alsamixer"
@@ -141,3 +141,4 @@ pgrep -x "thunderbird" >/dev/null || thunderbird &
 #pgrep -x "keybase" >/dev/null || run_keybase -a &
 pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
 #run "kvirc"
+
