@@ -145,6 +145,11 @@ super + alt + f
 alt + Return
     xdotool keyup Return key --clearmodifiers ctrl+Return
 
+
+# logitech mouse dpi control
+super + Tab
+    ~/.script/mouse_dpi.sh > /dev/null
+
 #shutdown, reboot, suspend and lock shortcuts
 super + shift + k
     ~/.script/prompt 'Do you really want to shutdown?' 'systemctl poweroff -i'
