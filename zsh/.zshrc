@@ -104,5 +104,6 @@ alias docker="podman"
 alias docker-compose="podman-compose"
 
 eval $(thefuck --alias)
+alias f="fuck"
 
 eval $(starship init zsh)
