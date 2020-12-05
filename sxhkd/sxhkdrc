@@ -70,7 +70,7 @@ super + Return
 
 # open dmenu
 super + d
-    prog="$(dmenu_path | dmenu -i -fn 'Monospace 10')"; [ -n "$prog" ] && setsid "$prog" &
+    prog="$(dmenu_path | dmenu -i -fn 'Monospace 10')"; setsid sh -c "$prog" &
 
 # dmenu calculator
 super + shift + d
