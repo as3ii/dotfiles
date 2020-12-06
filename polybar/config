@@ -47,7 +47,7 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = NotoMono:pixelsize=12;
+font-0 = NotoSans:pixelsize=12;
 font-1 = HackNerdFont:pizelsize=12;
 font-2 = NotoColorEmoji:scale=12:fontformat=truetype;
 
@@ -89,12 +89,12 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = NotoMono:pixelsize=12;
+font-0 = NotoSans:pixelsize=12;
 font-1 = HackNerdFont:pizelsize=12;
 font-2 = NotoColorEmoji:scale=12:fontformat=truetype;
 
-modules-left = bspwm xwindow
-modules-right = filesystem backlight-acpi alsa xkeyboard memory cpu wlan eth battery temperature date
+modules-left = bspwm xwindow2
+modules-right = filesystem backlight-acpi alsa xkeyboard memory cpu wlan eth battery temperature date2
 
 wm-restack = bspwm
 
@@ -107,6 +107,10 @@ cursor-scroll = ns-resize
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:91:...%
+
+[module/xwindow2]
+type = internal/xwindow
+label = %title:0:79:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -267,7 +271,7 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = "%d-%m-%Y"
+date = "%d-%m"
 date-alt = "%d-%m-%Y"
 
 time = %H:%M
@@ -277,7 +281,23 @@ format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
-label = %date% %time%
+label = %time% %date%
+
+[module/date2]
+type = internal/date
+interval = 5
+
+date = "%d-%m"
+date-alt = "%d-%m-%Y"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %time% %date%
 
 [module/alsa]
 type = internal/alsa
@@ -328,7 +348,6 @@ format-discharging-underline = ${self.format-charging-underline}
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
-
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
