@@ -89,6 +89,7 @@ pgrep -x "aa-notify" >/dev/null || \
 run "xbanish"                                           # hide cursor when typing
 run "optimus-manager-qt"                                # manage multiple GPUs
 run "clipmenud"
+pgrep -x "xcape" || xcape -e 'Caps_Lock=Escape|Caps_Lock' # remap fast press of caps
 #run "qjackctl"                                          # server audio
 pgrep -x "udiskie" >/dev/null || udiskie -qtF &         # removable media's automounter
 pgrep -x "solaar" >/dev/null || solaar -w hide >/dev/null 2>&1 &    # logitech mouse
