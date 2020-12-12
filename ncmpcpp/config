@@ -10,30 +10,26 @@
 ## alternative location to config file which defines that while launching
 ## ncmpcpp.
 ##
-#
 ncmpcpp_directory = ~/.local/share/ncmpcpp
-#
+
 ##
 ## Directory for storing downloaded lyrics. It defaults to ~/.lyrics since other
 ## MPD clients (eg. ncmpc) also use that location.
 ##
-#
 lyrics_directory = ~/.local/share/lyrics
-#
+
 ##### connection settings #####
-#
+
 mpd_host = localhost
-#
 mpd_port = 6600
-#
 mpd_connection_timeout = 5
-#
+
 ## Needed for tag editor and file operations to work.
 ##
 mpd_music_dir = /mnt/volume/Musica
-#
+
 #mpd_crossfade_time = 5
-#
+
 ##### music visualizer #####
 ##
 ## Note: In order to make music visualizer work you'll need to use mpd fifo
@@ -48,31 +44,28 @@ mpd_music_dir = /mnt/volume/Musica
 ##        format          "44100:16:2"
 ## }
 ##
-#
 visualizer_fifo_path = /tmp/mpd.fifo
-#
+
 ##
 ## Note: Below parameter is needed for ncmpcpp to determine which output
 ## provides data for visualizer and thus allow syncing between visualization and
 ## sound as currently there are some problems with it.
 ##
-#
 visualizer_output_name = Visualizer
-#
+
 ##
 ## If you set format to 44100:16:2, make it 'yes'.
 ##
 visualizer_in_stereo = yes
-#
+
 ##
 ## Note: Below parameter defines how often ncmpcpp has to "synchronize"
 ## visualizer and audio outputs.  30 seconds is optimal value, but if you
 ## experience synchronization problems, set it to lower value.  Keep in mind
 ## that sane values start with >=10.
 ##
-#
 visualizer_sync_interval = 30
-#
+
 ##
 ## Note: To enable spectrum frequency visualization you need to compile ncmpcpp
 ## with fftw3 support.
@@ -81,15 +74,13 @@ visualizer_sync_interval = 30
 ## Available values: spectrum, wave, wave_filled, ellipse.
 ##
 visualizer_type = spectrum
-#
 visualizer_look = ●▮
-#
 visualizer_color = blue, cyan, green, yellow, magenta, red
-#
+
 ## Alternative subset of 256 colors for terminals that support it.
 ##
 #visualizer_color = 41, 83, 119, 155, 185, 215, 209, 203, 197, 161
-#
+
 ##### system encoding #####
 ##
 ## ncmpcpp should detect your charset encoding but if it failed to do so, you
@@ -110,11 +101,11 @@ visualizer_color = blue, cyan, green, yellow, magenta, red
 ## (0 = always on).
 ##
 playlist_disable_highlight_delay = 0
-#
+
 ## Defines how long messages are supposed to be visible.
 ##
 message_delay_time = 5
-#
+
 ##### song format #####
 ##
 ## For a song format you can use:
@@ -222,11 +213,10 @@ message_delay_time = 5
 ## format to specify a custom sorting format.  Available values for
 ## browser_sort_mode are "name", "mtime", "format" and "noop".
 ##
-#
-#browser_sort_mode = name
-#
+browser_sort_mode = name
+
 #browser_sort_format = {%a - }{%t}|{%f} {(%l)}
-#
+
 ##### columns settings #####
 ##
 ## syntax of song columns list format is "column column etc."
@@ -261,17 +251,16 @@ message_delay_time = 5
 ##   display artist tag and then composer and performer if previous ones are not
 ##   available.
 ##
-#
 #song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
-#
+
 ##### various settings #####
-#
+
 ##
 ## Note: Custom command that will be executed each time song changes. Useful for
 ## notifications etc.
 ##
 execute_on_song_change = notify-send "Now Playing" "$(ncmpcpp --current-song='{{%t\n{%a - }%b}}|{%f}')"
-#
+
 ##
 ## Note: Custom command that will be executed each time player state
 ## changes. The environment variable MPD_PLAYER_STATE is set to the current
@@ -291,13 +280,10 @@ execute_on_song_change = notify-send "Now Playing" "$(ncmpcpp --current-song='{{
 ##
 ## Note: Possible display modes: classic, columns.
 ##
-#playlist_display_mode = columns
-#
-#browser_display_mode = classic
-#
-#search_engine_display_mode = classic
-#
-#playlist_editor_display_mode = classic
+playlist_display_mode = columns
+browser_display_mode = columns
+search_engine_display_mode = columns
+playlist_editor_display_mode = columns
 #
 #discard_colors_if_item_is_selected = yes
 #
@@ -317,7 +303,7 @@ execute_on_song_change = notify-send "Now Playing" "$(ncmpcpp --current-song='{{
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
 ##
-#progressbar_look = =>
+progressbar_look = "=> "
 #
 ## Available values: database, playlist.
 ##
@@ -325,8 +311,8 @@ execute_on_song_change = notify-send "Now Playing" "$(ncmpcpp --current-song='{{
 #
 ## Available values: classic, alternative.
 ##
-#user_interface = classic
-#
+user_interface = alternative
+
 #data_fetching_delay = yes
 #
 ## Available values: artist, album_artist, date, genre, composer, performer.
@@ -417,11 +403,9 @@ execute_on_song_change = notify-send "Now Playing" "$(ncmpcpp --current-song='{{
 #
 #clock_display_seconds = no
 #
-#display_volume_level = yes
-#
-#display_bitrate = no
-#
-#display_remaining_time = no
+display_volume_level = yes
+display_bitrate = yes
+display_remaining_time = no
 #
 ## Available values: none, basic, extended, perl.
 ##
