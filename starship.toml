@@ -65,5 +65,3 @@ disabled = true
 [status]
 disabled = false
 
-[git_status]
-disabled = true
