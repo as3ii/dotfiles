@@ -9,6 +9,8 @@ export PAGER="less"
 export WM="bspwm"
 export READER="zathura"
 
+export ALSAPCM="jack"
+
 export PATH="$PATH:$HOME/.local/bin"
 
 # color in less

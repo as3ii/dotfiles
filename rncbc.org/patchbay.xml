@@ -1,0 +1,104 @@
+<!DOCTYPE patchbay>
+<patchbay name="patchbay" version="0.9.0">
+ <output-sockets>
+  <socket client="system" name="MIC1" type="jack-audio" exclusive="off">
+   <plug>capture_1</plug>
+  </socket>
+  <socket client="system" name="MIC2" type="jack-audio" exclusive="off">
+   <plug>capture_2</plug>
+  </socket>
+  <socket client="Firefox" name="Firefox" type="jack-audio" exclusive="off">
+   <plug>AudioStream_0_out_0</plug>
+   <plug>AudioStream_0_out_1</plug>
+  </socket>
+  <socket client="mpv" name="MPV" type="jack-audio" exclusive="off">
+   <plug>out_0</plug>
+   <plug>out_1</plug>
+  </socket>
+  <socket client="alsa\-jack\.jackP\.[0-9]+\.[0-9]+" name="alsa" type="jack-audio" exclusive="off">
+   <plug>out_000</plug>
+   <plug>out_001</plug>
+  </socket>
+  <socket client="gx_head_fx" name="gx_head_fx 1" type="jack-audio" exclusive="off">
+   <plug>out_0</plug>
+   <plug>out_1</plug>
+  </socket>
+  <socket client="MPD" name="MPD" type="jack-audio" exclusive="off">
+   <plug>left</plug>
+   <plug>right</plug>
+  </socket>
+  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software)" type="jack-audio" exclusive="off">
+   <plug>MPD\/out\-1</plug>
+   <plug>MPD\/out\-2</plug>
+   <plug>Video\/out\-1</plug>
+   <plug>Video\/out\-2</plug>
+   <plug>Spotify\/out\-1</plug>
+   <plug>Spotify\/out\-2</plug>
+   <plug>Guitarix\/out\-1</plug>
+   <plug>Guitarix\/out\-2</plug>
+   <plug>MIC\/out\-1</plug>
+   <plug>MIC\/out\-2</plug>
+   <plug>alsa_in\/out\-1</plug>
+   <plug>alsa_in\/out\-2</plug>
+  </socket>
+  <socket client="Non\-Mixer\/MASTER" name="Non-Mixer/MASTER" type="jack-audio" exclusive="off">
+   <plug>out\-1</plug>
+   <plug>out\-2</plug>
+  </socket>
+  <socket client="system" name="system midi" type="jack-midi" exclusive="off">
+   <plug>midi_capture_1</plug>
+   <plug>midi_capture_2</plug>
+  </socket>
+ </output-sockets>
+ <input-sockets>
+  <socket client="Non\-Mixer\ \(input\)" name="Non-Mixer (input) MIC1" type="jack-audio" exclusive="on">
+   <plug>MIC/in-1</plug>
+  </socket>
+  <socket client="Non-Mixer (input)" name="Non-Mixer (input) MIC2" type="jack-audio" exclusive="on">
+   <plug>MIC/in-2</plug>
+  </socket>
+  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Video" type="jack-audio" exclusive="off">
+   <plug>Video/in-1</plug>
+   <plug>Video/in-2</plug>
+  </socket>
+  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) alsa" type="jack-audio" exclusive="off">
+   <plug>Alsa\/in\-1</plug>
+   <plug>Alsa\/in\-2</plug>
+  </socket>
+  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Guitarix" type="jack-audio" exclusive="off">
+   <plug>Guitarix/in-1</plug>
+   <plug>Guitarix/in-2</plug>
+  </socket>
+  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) MPD" type="jack-audio" exclusive="off">
+   <plug>MPD/in-1</plug>
+   <plug>MPD/in-2</plug>
+  </socket>
+  <socket client="Non\-Mixer\/MASTER" name="Non-Mixer/MASTER" type="jack-audio" exclusive="off">
+   <plug>in\-1</plug>
+   <plug>in\-2</plug>
+  </socket>
+  <socket client="system" name="system" type="jack-audio" exclusive="on">
+   <plug>playback_1</plug>
+   <plug>playback_2</plug>
+   <plug>playback_3</plug>
+   <plug>playback_4</plug>
+  </socket>
+  <socket client="system" name="system midi" type="jack-midi" exclusive="off">
+   <plug>midi_playback_1</plug>
+   <plug>midi_playback_2</plug>
+  </socket>
+ </input-sockets>
+ <slots/>
+ <cables>
+  <cable input="Non-Mixer (input) MIC1" type="jack-audio" output="MIC1"/>
+  <cable input="Non-Mixer (input) MIC2" type="jack-audio" output="MIC2"/>
+  <cable input="Non-Mixer (software) Video" type="jack-audio" output="Firefox"/>
+  <cable input="Non-Mixer (software) Video" type="jack-audio" output="MPV"/>
+  <cable input="Non-Mixer (software) alsa" type="jack-audio" output="alsa"/>
+  <cable input="Non-Mixer (software) Guitarix" type="jack-audio" output="gx_head_fx 1"/>
+  <cable input="Non-Mixer (software) MPD" type="jack-audio" output="MPD"/>
+  <cable input="Non-Mixer/MASTER" type="jack-audio" output="Non-Mixer (software)"/>
+  <cable input="system" type="jack-audio" output="Non-Mixer/MASTER"/>
+ </cables>
+</patchbay>
+
