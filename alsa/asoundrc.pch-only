@@ -4,14 +4,15 @@
 # use `aplay -l` to see card number/device number
 # doc: https://www.alsa-project.org/main/index.php/Asoundrc
 #      https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html
-#   default -> playback -> multi -> dmix -> analog output
-#      |                    └-----> dmix -> loopback input
-#      |                    └-----> softvol+dmix -> HDMI 0
-#      └-----> capture -> dsnoop -> soundcard
+#   default -> playback -> multi --> dmix ---------> PCH
+#      |                     └-----> softvol+dmix -> HDMI 0
+#      |                     └-----> dmix ---------> loopback input
+#      |
+#      └<----- capture <-- dsnoop <- PCH
 #
 
 # mixed audio to analog output
-pcm.dmixer {
+pcm.dmixer_pch {
     type dmix
     ipc_key 1024    # must be unique
     ipc_key_add_uid true
@@ -21,6 +22,7 @@ pcm.dmixer {
             card PCH
             device 0
             nonblock true
+            format S24_LE
             channels 2
             rate 48000
         }
@@ -48,7 +50,7 @@ pcm.dmixer_hdmi {
 }
 
 # mixed loopback input
-pcm.dmixloopin {
+pcm.loopin {
     type dmix
     ipc_key 1026    # must be unique
     ipc_key_add_uid true
@@ -65,16 +67,16 @@ pcm.loopout {
 }
 
 # duplicate audio stream
-pcm.multiple {
+pcm.multi_out {
     type route
     slave.pcm {
         type multi
         slaves.a {
-            pcm "dmixer"
+            pcm "dmixer_pch"
             channels 2
         }
         slaves.b {
-            pcm "dmixloopin"
+            pcm "loopin"
             channels 2
         }
         slaves.c {
@@ -99,7 +101,7 @@ pcm.multiple {
 }
 
 # multiplex audio capture
-pcm.mic {
+pcm.dsnoop_pch {
     type dsnoop
     ipc_key 1025    # must be unique
     ipc_key_add_uid true
@@ -108,7 +110,7 @@ pcm.mic {
             type hw
             card PCH
             nonblock true
-            format S16_LE
+            format S24_LE
             rate 48000
         }
     }
@@ -119,13 +121,12 @@ pcm.!default {
     type asym
     playback.pcm {
         type plug
-        slave.pcm "multiple"
+        slave.pcm "multi_out"
     }
     capture.pcm {
         type plug
-        slave.pcm "mic"
+        slave.pcm "dsnoop_pch"
     }
-    # playback.pcm { type plug slave.pcm "jack" }
     hint.description "Default Soundcard"
 }
 
