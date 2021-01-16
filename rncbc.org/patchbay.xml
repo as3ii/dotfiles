@@ -1,104 +1,139 @@
 <!DOCTYPE patchbay>
-<patchbay name="patchbay" version="0.9.0">
+<patchbay version="0.9.0" name="patchbay">
  <output-sockets>
-  <socket client="system" name="MIC1" type="jack-audio" exclusive="off">
+  <socket type="jack-audio" client="system" name="MIC1" exclusive="off">
    <plug>capture_1</plug>
   </socket>
-  <socket client="system" name="MIC2" type="jack-audio" exclusive="off">
+  <socket type="jack-audio" client="system" name="MIC2" exclusive="off">
    <plug>capture_2</plug>
   </socket>
-  <socket client="Firefox" name="Firefox" type="jack-audio" exclusive="off">
-   <plug>AudioStream_0_out_0</plug>
-   <plug>AudioStream_0_out_1</plug>
+  <socket type="jack-audio" client="Non\-Mixer\ \(input\)" name="Non-Mixer (input) 1" exclusive="off">
+   <plug>MIC\ 1\/out\-1</plug>
   </socket>
-  <socket client="mpv" name="MPV" type="jack-audio" exclusive="off">
-   <plug>out_0</plug>
-   <plug>out_1</plug>
+  <socket type="jack-audio" client="Non\-Mixer\ \(input\)" name="Non-Mixer (input) 2" exclusive="off">
+   <plug>MIC\ 2\/out\-1</plug>
   </socket>
-  <socket client="alsa\-jack\.jackP\.[0-9]+\.[0-9]+" name="alsa" type="jack-audio" exclusive="off">
-   <plug>out_000</plug>
-   <plug>out_001</plug>
-  </socket>
-  <socket client="gx_head_fx" name="gx_head_fx 1" type="jack-audio" exclusive="off">
-   <plug>out_0</plug>
-   <plug>out_1</plug>
-  </socket>
-  <socket client="MPD" name="MPD" type="jack-audio" exclusive="off">
-   <plug>left</plug>
-   <plug>right</plug>
-  </socket>
-  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software)" type="jack-audio" exclusive="off">
-   <plug>MPD\/out\-1</plug>
-   <plug>MPD\/out\-2</plug>
-   <plug>Video\/out\-1</plug>
-   <plug>Video\/out\-2</plug>
-   <plug>Spotify\/out\-1</plug>
-   <plug>Spotify\/out\-2</plug>
-   <plug>Guitarix\/out\-1</plug>
-   <plug>Guitarix\/out\-2</plug>
-   <plug>MIC\/out\-1</plug>
-   <plug>MIC\/out\-2</plug>
-   <plug>alsa_in\/out\-1</plug>
-   <plug>alsa_in\/out\-2</plug>
-  </socket>
-  <socket client="Non\-Mixer\/MASTER" name="Non-Mixer/MASTER" type="jack-audio" exclusive="off">
+  <socket type="jack-audio" client="Non\-Mixer\/MASTER\ B" name="Non-Mixer/MASTER B" exclusive="off">
    <plug>out\-1</plug>
    <plug>out\-2</plug>
   </socket>
-  <socket client="system" name="system midi" type="jack-midi" exclusive="off">
-   <plug>midi_capture_1</plug>
-   <plug>midi_capture_2</plug>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) MPD" exclusive="off">
+   <plug>MPD\/out\-1</plug>
+   <plug>MPD\/out\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Video" exclusive="off">
+   <plug>Video\/out\-1</plug>
+   <plug>Video\/out\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Alsa" exclusive="off">
+   <plug>Alsa\/out\-1</plug>
+   <plug>Alsa\/out\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Guitarix" exclusive="off">
+   <plug>Guitarix\/out\-1</plug>
+   <plug>Guitarix\/out\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\/MASTER\ A" name="Non-Mixer/MASTER A" exclusive="off">
+   <plug>out\-1</plug>
+   <plug>out\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="gx_head_fx" name="guitarix" exclusive="off">
+   <plug>out_0</plug>
+   <plug>out_1</plug>
+  </socket>
+  <socket type="jack-audio" client="MPD" name="MPD" exclusive="off">
+   <plug>left</plug>
+   <plug>right</plug>
+  </socket>
+  <socket type="jack-audio" client="loopout" name="loopout" exclusive="off">
+   <plug>capture_1</plug>
+   <plug>capture_2</plug>
+  </socket>
+  <socket type="jack-audio" client="alsa\-jack\.jackP\.[0-9]+\.[0-9]+" name="alsa-general" exclusive="off">
+   <plug>out_000</plug>
+   <plug>out_001</plug>
+  </socket>
+  <socket type="jack-audio" client="Firefox" name="Firefox" exclusive="off">
+   <plug>AudioStream_[0-9]+_out_0</plug>
+   <plug>AudioStream_[0-9]+_out_1</plug>
+  </socket>
+  <socket type="jack-audio" client="mpv" name="MPV" exclusive="off">
+   <plug>out_0</plug>
+   <plug>out_1</plug>
+  </socket>
+  <socket type="jack-audio" client="alsoft" name="alsoft (telegram)" exclusive="off">
+   <plug>channel_1</plug>
+   <plug>channel_2</plug>
   </socket>
  </output-sockets>
  <input-sockets>
-  <socket client="Non\-Mixer\ \(input\)" name="Non-Mixer (input) MIC1" type="jack-audio" exclusive="on">
-   <plug>MIC/in-1</plug>
+  <socket type="jack-audio" client="Non\-Mixer\ \(input\)" name="Non-Mixer (input) MIC1" exclusive="off">
+   <plug>MIC\ 1\/in\-1</plug>
   </socket>
-  <socket client="Non-Mixer (input)" name="Non-Mixer (input) MIC2" type="jack-audio" exclusive="on">
-   <plug>MIC/in-2</plug>
+  <socket type="jack-audio" client="Non\-Mixer\ \(input\)" name="Non-Mixer (input) MIC2" exclusive="off">
+   <plug>MIC\ 2\/in\-1</plug>
   </socket>
-  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Video" type="jack-audio" exclusive="off">
-   <plug>Video/in-1</plug>
-   <plug>Video/in-2</plug>
-  </socket>
-  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) alsa" type="jack-audio" exclusive="off">
-   <plug>Alsa\/in\-1</plug>
-   <plug>Alsa\/in\-2</plug>
-  </socket>
-  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Guitarix" type="jack-audio" exclusive="off">
-   <plug>Guitarix/in-1</plug>
-   <plug>Guitarix/in-2</plug>
-  </socket>
-  <socket client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) MPD" type="jack-audio" exclusive="off">
-   <plug>MPD/in-1</plug>
-   <plug>MPD/in-2</plug>
-  </socket>
-  <socket client="Non\-Mixer\/MASTER" name="Non-Mixer/MASTER" type="jack-audio" exclusive="off">
+  <socket type="jack-audio" client="Non\-Mixer\/MASTER\ B" name="Non-Mixer/MASTER B" exclusive="off">
    <plug>in\-1</plug>
-   <plug>in\-2</plug>
   </socket>
-  <socket client="system" name="system" type="jack-audio" exclusive="on">
-   <plug>playback_1</plug>
-   <plug>playback_2</plug>
+  <socket type="jack-audio" client="system" name="monitor B_3+4" exclusive="off">
    <plug>playback_3</plug>
    <plug>playback_4</plug>
   </socket>
-  <socket client="system" name="system midi" type="jack-midi" exclusive="off">
-   <plug>midi_playback_1</plug>
-   <plug>midi_playback_2</plug>
+  <socket type="jack-audio" client="Non\-Mixer\/MASTER\ A" name="Non-Mixer/MASTER A" exclusive="off">
+   <plug>in\-1</plug>
+   <plug>in\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="PCH" name="PCH" exclusive="off">
+   <plug>playback_1</plug>
+   <plug>playback_2</plug>
+  </socket>
+  <socket type="jack-audio" client="system" name="monitor A_1+2" exclusive="on">
+   <plug>playback_1</plug>
+   <plug>playback_2</plug>
+  </socket>
+  <socket type="jack-audio" client="ebumeter" name="ebumeter" exclusive="off">
+   <plug>in\.L</plug>
+   <plug>in\.R</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Guitarix" exclusive="off">
+   <plug>Guitarix/in-1</plug>
+   <plug>Guitarix/in-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) MPD" exclusive="off">
+   <plug>MPD\/in\-1</plug>
+   <plug>MPD\/in\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) alsa" exclusive="off">
+   <plug>Alsa\/in\-1</plug>
+   <plug>Alsa\/in\-2</plug>
+  </socket>
+  <socket type="jack-audio" client="Non\-Mixer\ \(software\)" name="Non-Mixer (software) Video" exclusive="off">
+   <plug>Video/in-1</plug>
+   <plug>Video/in-2</plug>
   </socket>
  </input-sockets>
  <slots/>
  <cables>
-  <cable input="Non-Mixer (input) MIC1" type="jack-audio" output="MIC1"/>
-  <cable input="Non-Mixer (input) MIC2" type="jack-audio" output="MIC2"/>
-  <cable input="Non-Mixer (software) Video" type="jack-audio" output="Firefox"/>
-  <cable input="Non-Mixer (software) Video" type="jack-audio" output="MPV"/>
-  <cable input="Non-Mixer (software) alsa" type="jack-audio" output="alsa"/>
-  <cable input="Non-Mixer (software) Guitarix" type="jack-audio" output="gx_head_fx 1"/>
-  <cable input="Non-Mixer (software) MPD" type="jack-audio" output="MPD"/>
-  <cable input="Non-Mixer/MASTER" type="jack-audio" output="Non-Mixer (software)"/>
-  <cable input="system" type="jack-audio" output="Non-Mixer/MASTER"/>
+  <cable type="jack-audio" output="MIC1" input="Non-Mixer (input) MIC1"/>
+  <cable type="jack-audio" output="MIC2" input="Non-Mixer (input) MIC2"/>
+  <cable type="jack-audio" output="Non-Mixer (input) 1" input="Non-Mixer/MASTER B"/>
+  <cable type="jack-audio" output="Non-Mixer (input) 2" input="Non-Mixer/MASTER B"/>
+  <cable type="jack-audio" output="Non-Mixer/MASTER B" input="monitor B_3+4"/>
+  <cable type="jack-audio" output="Non-Mixer (software) MPD" input="Non-Mixer/MASTER A"/>
+  <cable type="jack-audio" output="Non-Mixer (software) Video" input="Non-Mixer/MASTER A"/>
+  <cable type="jack-audio" output="Non-Mixer (software) Alsa" input="Non-Mixer/MASTER A"/>
+  <cable type="jack-audio" output="Non-Mixer (software) Guitarix" input="Non-Mixer/MASTER A"/>
+  <cable type="jack-audio" output="Non-Mixer/MASTER A" input="monitor A_1+2"/>
+  <cable type="jack-audio" output="Non-Mixer/MASTER A" input="PCH"/>
+  <cable type="jack-audio" output="Non-Mixer/MASTER A" input="ebumeter"/>
+  <cable type="jack-audio" output="guitarix" input="Non-Mixer (software) Guitarix"/>
+  <cable type="jack-audio" output="MPD" input="Non-Mixer (software) MPD"/>
+  <cable type="jack-audio" output="loopout" input="Non-Mixer (software) alsa"/>
+  <cable type="jack-audio" output="alsa-general" input="Non-Mixer (software) alsa"/>
+  <cable type="jack-audio" output="Firefox" input="Non-Mixer (software) Video"/>
+  <cable type="jack-audio" output="MPV" input="Non-Mixer (software) Video"/>
+  <cable type="jack-audio" output="alsoft (telegram)" input="Non-Mixer (software) Video"/>
  </cables>
 </patchbay>
 
