@@ -26,6 +26,6 @@ pcm.!default {
 # control utilities (alsamixer)
 ctl.!default {
     type hw
-    card PCH
+    card U192k
 }
 
