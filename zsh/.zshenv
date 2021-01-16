@@ -9,7 +9,12 @@ export PAGER="less"
 export WM="bspwm"
 export READER="zathura"
 
-export ALSAPCM="jack"
+# alsa settings
+export ALSA_CARD="U192k"        # pcm.default pcm.hw pcm.plughw ctl.sysdefault
+                                # ctl.hw rawmidi.default rawmidi.hw hwdep.hw
+export ALSA_MASTER_MIXER="$(
+    amixer scontrols | sed "s/^.* '//;s/',[0-9]$//;/.*[Mm]ic.*/d;q"
+    )"  # used by my personal polybar
 
 export PATH="$PATH:$HOME/.local/bin"
 
