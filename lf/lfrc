@@ -119,6 +119,7 @@ cmd trash ${{
 }}
 
 cmd du !ncdu -r --exclude-kernfs --si "${f%/*}"
+cmd ncdu :du
 
 cmd df !df --si
 
@@ -133,8 +134,10 @@ map <bs2> updir
 map e $$TERMINAL -e $EDITOR "$f" &
 map H set hidden!
 map R :reload; redraw
-map <delete> :trash; reload; reload
+map <delete> :trash; reload
+map D :trash; reload
 
+# cd aliases
 map gc cd ~/.config
 map ge cd /etc
 map gb cd /boot
@@ -143,7 +146,7 @@ map gd cd ~/Downloads
 map ga cd /mnt/archive
 map gs cd ~/.script
 map gt cd ~/.local/share/Trash
-map gpc cd ~/Pictures
+map gpi cd ~/Pictures
 map gpr cd ~/prog
 map gu cd ~/UNI
 map gm $lf -remote "send $id cd /run/media/$USER"
