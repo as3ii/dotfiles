@@ -9,6 +9,8 @@ set ignorecase true
 set shell sh
 set shellopts '-eu'
 set tabstop 4
+set incsearch true
+set globsearch true
 
 # functions
 cmd open ${{
@@ -136,6 +138,8 @@ map H set hidden!
 map R :reload; redraw
 map <delete> :trash; reload
 map D :trash; reload
+map f push :search<enter>**<left>
+map F push :search-back<enter>**<left>
 
 # cd aliases
 map gc cd ~/.config
