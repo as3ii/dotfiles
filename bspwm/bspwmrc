@@ -7,18 +7,19 @@ TERMINALC="Alacritty"   # terminal emulator class
 
 # exec function: run only if not allready running
 run() {
-    pgrep -fx "$1" >/dev/null || $1 &
+    pgrep -fx "$(printf "%s" "$1" | sed 's/nice -n [0-9]* //')" >/dev/null || \
+        nohup sh -c "$1" >/dev/null 2>&1 &
 }
 
 reload() {
-    if pgrep -fx "$1" >/dev/null; then
+    if pgrep -fx "$(printf "%s" "$1" | sed 's/nice -n [0-9]* //')" >/dev/null; then
         PID="$(pgrep -fx "$1")"
         timeout -k 3 2 killall -TERM "$1" || \
             timeout -k 3 2 killall -KILL "$1" || \
             killall -SEGV "$1"
         sleep 1
     fi
-    $1 &
+    nohup sh -c "$1" >/dev/null 2>&1 &
 }
 
 
@@ -76,24 +77,23 @@ fi
 
 
 ### early start programs ###
-reload "sxhkd"                                          # keybindings
+reload "nice -n 5 sxhkd"                                        # keybindings
 if grep -q "1" /sys/class/power_supply/ADP*/online; then
-    reload "picom --daemon --experimental-backends"
+    reload "nice -n 20 picom --daemon --experimental-backends"
 else
     pkill -fx "picom --daemon --experimental-backends"
 fi
-reload "dunst"                                          # notification daemon
-pgrep -x "wallpaper.sh" || "$HOME"/.script/wallpaper.sh & # wallpaper script
+reload "nice -n 5 dunst"                                        # notification daemon
+pgrep -x "wallpaper.sh" || nice -n 20 "$HOME"/.script/wallpaper.sh & # wallpaper script
 pgrep -x "aa-notify" >/dev/null || \
     "aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log" & # apparmor notification
-run "xbanish"                                           # hide cursor when typing
-run "optimus-manager-qt"                                # manage multiple GPUs
-run "clipmenud"
+run "nice -n 20 xbanish"                                        # hide cursor when typing
+run "nice -n 10 optimus-manager-qt"                             # manage multiple GPUs
+run "nice -n 5 clipmenud"
 #pgrep -x "xcape" || xcape -e 'Caps_Lock=Escape|Caps_Lock' # remap fast press of caps
 run "qjackctl"                                          # server audio
-pgrep -x "non-mixer" >/dev/null || non-mixer "$HOME/.config/ntk/mixer" &
-pgrep -x "udiskie" >/dev/null || udiskie -qtF &         # removable media's automounter
-pgrep -x "solaar" >/dev/null || solaar -w hide >/dev/null 2>&1 &    # logitech mouse
+pgrep -x "udiskie" >/dev/null || nice -n 10 udiskie -qtF &      # removable media's automounter
+pgrep -x "solaar" >/dev/null || nice -n 20 solaar -w hide >/dev/null 2>&1 &    # logitech mouse
 reload "mpd"                                            # music server
 # launch mpd-mpris with automatic restart when crash
 if pgrep -fx "mpd-mpris" >/dev/null; then
@@ -104,7 +104,7 @@ if pgrep -fx "mpd-mpris" >/dev/null; then
     sleep 1
 else
     while true; do
-        mpd-mpris
+        nice -n 10 mpd-mpris
         sleep 1
     done &
 fi
@@ -118,28 +118,29 @@ bspc rule -r "*"
 bspc rule -a "firefox" desktop=$ws3
 bspc rule -a "TelegramDesktop" desktop=$ws4
 bspc rule -a "qBittorrent" desktop=$ws6
+bspc rule -a "KVIrc" desktop=$ws6
 bspc rule -a "Thunderbird" desktop=$ws7
 bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
+bspc rule -a "Non-Mixer" desktop=$ws8
 bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
 bspc rule -a "Keybase" desktop=$ws10
 bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
-bspc rule -a "KVIrc" desktop=$ws6
 
 # late start programs
 killall -q polybar
-MONITOR=$monitor_laptop polybar --reload main &
+MONITOR=$monitor_laptop nice -n 5 polybar --reload main &
 if xrandr -q | grep -qi "$monitor_hdmi connected"; then
-    MONITOR=$monitor_hdmi polybar --reload secondary &
+    MONITOR=$monitor_hdmi nice -n 5 polybar --reload secondary &
 fi
-pgrep -x "firefox" >/dev/null || apulse firefox &
-reload "telegram-desktop"
-run "$TERMINAL --class alsamixer -e alsamixer"
+pgrep -x "firefox" >/dev/null || nice -n 5 apulse firefox &
+reload "nice -n 10 telegram-desktop"
+#run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
 run "syncthing -no-browser -logflags=3 \
     -logfile=${XDG_DATA_HOME:-HOME/.local/share}/syncthing.log"
-pgrep -x "thunderbird" >/dev/null || thunderbird &
+pgrep -x "thunderbird" >/dev/null || nice -n 10 thunderbird &
 #pgrep -x "keybase" >/dev/null || run_keybase -a &
 pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
 #run "kvirc"
