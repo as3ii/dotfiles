@@ -5,8 +5,8 @@
 autoload -U colors && colors
 
 # Set hystory
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=20000
+SAVEHIST=20000
 HISTFILE=~/.cache/zsh/history
 setopt append_history
 setopt share_history
@@ -25,7 +25,7 @@ setopt pushd_ignore_dups
 setopt noglobdots       # * not match dotfiles
 setopt noshwordsplit    # zsh style word splitting
 setopt unset            # don't error out when unset parameters are used
-
+setopt interactivecomments  # accept comments on interactive shell
 
 # automatic completions
 autoload -U compinit
@@ -102,6 +102,8 @@ alias format="clang-format --style=\"{BasedOnStyle: llvm, IndentWidth: 4}\" -i *
 alias ssh="TERM=xterm-256color ssh"
 alias docker="podman"
 alias docker-compose="podman-compose"
+alias clippy="cargo clean; cargo fmt --all; cargo clippy -- -W clippy::pedantic"
+alias paru="nice -n 20 paru"
 
 eval $(thefuck --alias)
 alias f="fuck"
