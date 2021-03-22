@@ -2,7 +2,6 @@
 set preview true
 set previewer ~/.script/preview
 set hidden false
-set color256 true
 set drawbox true
 set icons true
 set ignorecase true
@@ -18,7 +17,7 @@ cmd open ${{
         *.cue|*.m3u) setsid mpv "$f" > /dev/null 2>&1 &;;
         *) case $(file --mime-type "$f" -bL) in
             text/*|application/json) $EDITOR "$fx";;
-            image/*) sxiv "${f%/*}" > /dev/null 2>&1 &;;
+            image/*) sxiv "$f" > /dev/null 2>&1 &;;
             application/x-dosexec) setsid wine "$f" > /dev/null 2>&1 &;;
             *) for f in "$fx"; do setsid xdg-open "$f" > /dev/null 2>&1 & done;;
         esac
@@ -78,14 +77,16 @@ cmd bulk-rename ${{
 # extract archive
 cmd extract ${{
     set -f
-    case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
-    esac
+    for f in "$fx"; do
+        case "$f" in
+            *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf "$f";;
+            *.tar.gz|*.tgz) tar xzvf "$f";;
+            *.tar.xz|*.txz) tar xJvf "$f";;
+            *.zip) unzip "$f";;
+            *.rar) unrar x "$f";;
+            *.7z) 7z x "$f";;
+        esac
+    done
 }}
 
 # compress current file or selected files with tar and gunzip
@@ -134,6 +135,7 @@ map '"'
 map <enter> open
 map <bs2> updir
 map e $$TERMINAL -e $EDITOR "$f" &
+map i $sxiv "${f%/*}" > /dev/null 2>&1 &
 map H set hidden!
 map R :reload; redraw
 map <delete> :trash; reload
