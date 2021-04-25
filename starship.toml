@@ -14,8 +14,8 @@ show_milliseconds = true
 
 
 [directory]
-truncate_length = 3
-truncate_symbol = "…/"
+truncation_length = 3
+truncation_symbol = "…/"
 
 
 [battery]
@@ -38,9 +38,8 @@ style = "bold green"
 
 
 [memory_usage]
-show_percentage = false
-show_swap = true
 threshold = -1
+format = "$symbol[${ram}( | ${swap})]($style) "
 symbol = "🧠 "
 style = "bold dimmed green"
 disabled = false
