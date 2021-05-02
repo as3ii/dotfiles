@@ -15,6 +15,7 @@ set globsearch true
 cmd open ${{
     case "$f" in
         *.cue|*.m3u) setsid mpv "$f" > /dev/null 2>&1 &;;
+        *.pdf) setsid zathura "$f" > /dev/null 2>&1 & ;;
         *) case $(file --mime-type "$f" -bL) in
             text/*|application/json) $EDITOR "$fx";;
             image/*) sxiv "$f" > /dev/null 2>&1 &;;
