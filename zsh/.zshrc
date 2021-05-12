@@ -104,6 +104,22 @@ alias docker="podman"
 alias docker-compose="podman-compose"
 alias clippy="cargo clean; cargo fmt --all; cargo clippy -- -W clippy::pedantic"
 alias paru="nice -n 20 paru"
+mpva() {
+    case "$1" in
+        *.m3u|*.m3u8) playlist="$1"; shift
+            mpv --no-config --no-video --no-cookies --ao=jack \
+            --audio-channels=2 --cache=yes --playlist="$playlist" $@;;
+        *) mpv --no-config --no-video --no-cookies --ao=jack \
+            --audio-channels=2 --cache=yes $@;;
+    esac
+}
+mpv() {
+    case "$1" in
+        *.m3u|*.m3u8) playlist="$1"; shift
+            /usr/bin/mpv --playlist="$playlist" $@;;
+        *) /usr/bin/mpv $@;;
+    esac
+}
 
 eval $(thefuck --alias)
 alias f="fuck"
