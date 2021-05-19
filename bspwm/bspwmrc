@@ -91,10 +91,37 @@ run "nice -n 20 xbanish"                                        # hide cursor wh
 run "nice -n 10 optimus-manager-qt"                             # manage multiple GPUs
 run "nice -n 5 clipmenud"
 #pgrep -x "xcape" || xcape -e 'Caps_Lock=Escape|Caps_Lock' # remap fast press of caps
-run "qjackctl"                                          # server audio
+### server audio
+while true; do
+    sleep 5
+    pgrep -x "qjackctl" >/dev/null || ( \
+        qjackctl
+        sudo chrt -fap 70 "$(pidof qjackctl)"
+        #sudo chrt -fap 70 "$(pidof qjackctl)"
+    )
+done &
+while true; do
+    sleep 5
+    pgrep -x "non-mixer" >/dev/null || ( \
+        sudo chrt -fap 89 "$(pidof pipewire)"
+        sudo chrt -fap 88 "$(pidof pipewire-pulse)"
+        sudo chrt -fap 87 "$(pidof pipewire-media-session)"
+        non-mixer /home/as3ii/.config/ntk/mixer >/dev/null
+        sudo chrt -fap 80 "$(pidof non-mixer)"
+        #sudo chrt -fap 80 "$(pidof non-mixer)"
+    )
+done &
 pgrep -x "udiskie" >/dev/null || nice -n 10 udiskie -qtF &      # removable media's automounter
 pgrep -x "solaar" >/dev/null || nice -n 20 solaar -w hide >/dev/null 2>&1 &    # logitech mouse
-reload "mpd"                                            # music server
+if pgrep -fx "$(printf "%s" "mpd" | sed 's/nice -n [0-9]* //')" >/dev/null; then
+    PID="$(pgrep -fx "mpd")"
+    timeout -k 3 2 killall -TERM "mpd" || \
+        timeout -k 3 2 killall -KILL "mpd" || \
+        killall -SEGV "mpd"
+    sleep 1
+fi
+nohup sh -c "chrt -f 10 mpd" >/dev/null 2>&1 &
+
 # launch mpd-mpris with automatic restart when crash
 if pgrep -fx "mpd-mpris" >/dev/null; then
     PID="$(pgrep -fx "mpd-mpris")"
