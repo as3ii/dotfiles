@@ -5,8 +5,8 @@
 autoload -U colors && colors
 
 # Set hystory
-HISTSIZE=20000
-SAVEHIST=20000
+HISTSIZE=200000
+SAVEHIST=1000000
 HISTFILE=~/.cache/zsh/history
 setopt append_history
 setopt share_history
@@ -26,6 +26,7 @@ setopt noglobdots       # * not match dotfiles
 setopt noshwordsplit    # zsh style word splitting
 setopt unset            # don't error out when unset parameters are used
 setopt interactivecomments  # accept comments on interactive shell
+setopt completeinword   # complete not just at the end
 
 # automatic completions
 autoload -U compinit
@@ -39,7 +40,7 @@ compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_BERSION
 # set fixed normal mode
 bindkey -e
 # Keybinding:
-autoload zkbd
+autoload -U zkbd
 [[ ! -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM ]] && zkbd
 [[ -f ${ZDOTDIR:-$HOME}/.zkbd/$TERM ]] && source ${ZDOTDIR:-$HOME}/.zkbd/$TERM
 [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
