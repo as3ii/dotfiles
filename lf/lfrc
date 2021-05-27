@@ -57,19 +57,21 @@ cmd touch ${{
 
 # progress in paste command
 cmd paste &{{
-    set -- $(lf -remote load)
-    mode="$1"
-    shift
-    case "$mode" in
-        copy)
-            rsync -av --ignore-existing --progress -- "$@" . |
-            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
-            while IFS= read -r line; do
-                lf -remote "send $id echo $line"
-            done
-            ;;
-        move) mv -n -- "$@" .;;
-    esac
+    mode="$(lf -remote load | head -n 1)"
+    echo "$mode"
+    lf -remote load | tail -n +2 | sed '/^$/d' | while read -r i; do
+        echo "$i"
+        case "$mode" in
+            copy)
+                rsync -av --ignore-existing --progress -- "$i" . |
+                stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+                while IFS= read -r line; do
+                    lf -remote "send $id echo $line"
+                done
+                ;;
+            move) mv -n -- "$i" .;;
+        esac
+    done
     lf -remote "send load"
     lf -remote "send clear"
 }}
@@ -178,4 +180,5 @@ map gpi cd ~/Pictures
 map gpr cd ~/prog
 map gu cd ~/UNI
 map gm $lf -remote "send $id cd /run/media/$USER"
+map gn cd /mnt
 
