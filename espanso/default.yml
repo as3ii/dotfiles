@@ -8,24 +8,24 @@ auto_restart: false
 
 matches:
     # Parenthesis
-    - trigger: "("
-      replace: "($|$)"
+    # - trigger: "("
+    #   replace: "($|$)"
 
-    - trigger: "["
-      replace: "[$|$]"
+    # - trigger: "["
+    #   replace: "[$|$]"
 
-    - trigger: "{"
-      replace: "{$|$}"
+    # - trigger: "{"
+    #   replace: "{$|$}"
 
-    # Quotation marks
-    - trigger: " \""
-      replace: " \"$|$\""
+    # # Quotation marks
+    # - trigger: " \""
+    #   replace: " \"$|$\""
 
-    - trigger: " '"
-      replace: " '$|$'"
+    # - trigger: " '"
+    #   replace: " '$|$'"
 
-    - trigger: " `"
-      replace: " `$|$`"
+    # - trigger: " `"
+    #   replace: " `$|$`"
 
     # Emoji
     - trigger: ":ok"
