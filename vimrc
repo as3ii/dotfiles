@@ -211,6 +211,8 @@ let g:lsp_signs_error = {'text': '✗'}
 let g:lsp_signs_warning = {'text': '‼'}
 let g:lsp_signs_hint = {'text': '?'}
 let g:lsp_settings_filetype_rust = 'rust-analyzer'	" change rust language server
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
 
 
 " asyncomplete config
