@@ -10,7 +10,7 @@ export WM="bspwm"
 export READER="zathura"
 
 # alsa settings
-export ALSA_CARD="U192k"        # pcm.default pcm.hw pcm.plughw ctl.sysdefault
+export ALSA_CARD="PipeWire"     # pcm.default pcm.hw pcm.plughw ctl.sysdefault
                                 # ctl.hw rawmidi.default rawmidi.hw hwdep.hw
 export ALSA_MASTER_MIXER="$(
     amixer scontrols | sed "s/^.* '//;s/',[0-9]$//;/.*[Mm]ic.*/d;q"

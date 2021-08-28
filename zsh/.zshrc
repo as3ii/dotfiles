@@ -121,6 +121,9 @@ mpv() {
         *) /usr/bin/mpv $@;;
     esac
 }
+meteo() {
+    curl https://wttr.in/"$1"
+}
 
 eval $(thefuck --alias)
 alias f="fuck"
