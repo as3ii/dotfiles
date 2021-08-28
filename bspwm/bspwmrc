@@ -90,6 +90,10 @@ pgrep -x "aa-notify" >/dev/null || \
 run "nice -n 20 xbanish"                                        # hide cursor when typing
 run "nice -n 10 optimus-manager-qt"                             # manage multiple GPUs
 run "nice -n 5 clipmenud"
+run "nice -n 10 cbatticon"
+run "nice -n 5 veracrypt --use-dummy-sudo-password --background-task"
+run "nice -n 5 nm-applet"
+run "nice -n 5 espanso daemon"
 #pgrep -x "xcape" || xcape -e 'Caps_Lock=Escape|Caps_Lock' # remap fast press of caps
 ### server audio
 while true; do
@@ -100,44 +104,44 @@ while true; do
         #sudo chrt -fap 70 "$(pidof qjackctl)"
     )
 done &
-while true; do
-    sleep 5
-    pgrep -x "non-mixer" >/dev/null || ( \
+#while true; do
+    #sleep 5
+    #pgrep -x "non-mixer" >/dev/null || ( \
         sudo chrt -fap 89 "$(pidof pipewire)"
         sudo chrt -fap 88 "$(pidof pipewire-pulse)"
         sudo chrt -fap 87 "$(pidof pipewire-media-session)"
-        non-mixer /home/as3ii/.config/ntk/mixer >/dev/null
-        sudo chrt -fap 80 "$(pidof non-mixer)"
+        #non-mixer /home/as3ii/.config/ntk/mixer >/dev/null
         #sudo chrt -fap 80 "$(pidof non-mixer)"
-    )
-done &
+        #sudo chrt -fap 80 "$(pidof non-mixer)"
+    #)
+#done &
 pgrep -x "udiskie" >/dev/null || nice -n 10 udiskie -qtF &      # removable media's automounter
 pgrep -x "solaar" >/dev/null || nice -n 20 solaar -w hide >/dev/null 2>&1 &    # logitech mouse
-if pgrep -fx "$(printf "%s" "mpd" | sed 's/nice -n [0-9]* //')" >/dev/null; then
-    PID="$(pgrep -fx "mpd")"
-    timeout -k 3 2 killall -TERM "mpd" || \
-        timeout -k 3 2 killall -KILL "mpd" || \
-        killall -SEGV "mpd"
-    sleep 1
-fi
-nohup sh -c "chrt -f 10 mpd" >/dev/null 2>&1 &
+# if pgrep -fx "$(printf "%s" "mpd" | sed 's/nice -n [0-9]* //')" >/dev/null; then
+#     sleep 1
+#     PID="$(pgrep -fx "mpd")"
+#     timeout -k 3 2 killall -TERM "mpd" || \
+#         timeout -k 3 2 killall -KILL "mpd" || \
+#         killall -SEGV "mpd"
+# fi
+# nohup sh -c "chrt -f 10 mpd" >/dev/null 2>&1 &
 
-# launch mpd-mpris with automatic restart when crash
-if pgrep -fx "mpd-mpris" >/dev/null; then
-    PID="$(pgrep -fx "mpd-mpris")"
-    PPID="$(cut -f2 "/proc/$PID/status")"
-    timeout -k 3 2 kill -TERM "$PPID" || \
-        timeout -k 3 2 kill -KILL "$PPID"
-    sleep 1
-else
-    while true; do
-        nice -n 10 mpd-mpris
-        sleep 1
-    done &
-fi
+# # launch mpd-mpris with automatic restart when crash
+# if pgrep -fx "mpd-mpris" >/dev/null; then
+#     PID="$(pgrep -fx "mpd-mpris")"
+#     PPID="$(cut -f2 "/proc/$PID/status")"
+#     timeout -k 3 2 kill -TERM "$PPID" || \
+#         timeout -k 3 2 kill -KILL "$PPID"
+#     sleep 1
+# else
+#     while true; do
+#         nice -n 10 mpd-mpris
+#         sleep 4
+#     done &
+# fi
 
 # keyboard settings
-setxkbmap it
+setxkbmap en altgr-intl
 numlockx on
 
 # default workspace # xprop -> WM_CLASS(string) -> second argument
@@ -152,13 +156,15 @@ bspc rule -a "Non-Mixer" desktop=$ws8
 bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
 bspc rule -a "Keybase" desktop=$ws10
-bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
+# bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 # late start programs
 killall -q polybar
-MONITOR=$monitor_laptop nice -n 5 polybar --reload main &
+MONITOR=$monitor_laptop ALSA_CARD=$ALSA_CARD ALSA_MASTER_MIXER=$ALSA_MASTER_MIXER \
+    nice -n 5 polybar --reload main &
 if xrandr -q | grep -qi "$monitor_hdmi connected"; then
-    MONITOR=$monitor_hdmi nice -n 5 polybar --reload secondary &
+    MONITOR=$monitor_hdmi ALSA_CARD=$ALSA_CARD ALSA_MASTER_MIXER=$ALSA_MASTER_MIXER \
+        nice -n 5 polybar --reload secondary &
 fi
 pgrep -x "firefox" >/dev/null || nice -n 5 apulse firefox &
 reload "nice -n 10 telegram-desktop"
@@ -168,9 +174,9 @@ run "$TERMINAL --class nmon -e nmon"
 run "syncthing -no-browser -logflags=3 \
     -logfile=${XDG_DATA_HOME:-HOME/.local/share}/syncthing.log"
 pgrep -x "thunderbird" >/dev/null || nice -n 10 thunderbird &
-#pgrep -x "keybase" >/dev/null || run_keybase -a &
-pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
-#run "kvirc"
+# pgrep -x "keybase" >/dev/null || run_keybase -a &
+# pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
+# run "kvirc"
 
 
 # remove rules
