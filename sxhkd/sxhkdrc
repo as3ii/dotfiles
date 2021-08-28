@@ -76,6 +76,9 @@ super + d
 super + shift + d
     ~/.script/dmenu_calc.sh
 
+super + g
+    clipmenu
+
 # screenshot
 Print
     pgrep flameshot || flameshot&; flameshot gui
