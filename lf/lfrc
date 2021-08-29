@@ -11,6 +11,8 @@ set tabstop 4
 set incsearch true
 set globsearch true
 
+%[ $LF_LEVEL -eq 1 ] || echo "Warning: You're in a nested lf instance!"
+
 # functions
 cmd open ${{
     case "$f" in
@@ -47,20 +49,19 @@ cmd encrypt-armored !{{
 }}
 
 
-cmd mkdir %set -f; printf "Dir name: "; read ans; mkdir "$ans"
+cmd mkdir %set -f; printf "Dir name: "; read ans; mkdir -p "$ans"
 
-cmd touch ${{
-    set -f
-    printf "File name: "
-    read ans; $EDITOR "$ans"
-}}
+cmd touch %set -f; printf "File name: "; read ans; $EDITOR "$ans"
+
 
 # progress in paste command
-cmd paste &{{
-    mode="$(lf -remote load | head -n 1)"
-    echo "$mode"
-    lf -remote load | tail -n +2 | sed '/^$/d' | while read -r i; do
-        echo "$i"
+cmd paste-async %{{
+    IFS='
+'
+    set -- $(cat ~/.local/share/lf/files)
+    mode="$1"
+    shift
+    printf "%s\n" "$@" | while read -r i; do
         case "$mode" in
             copy)
                 rsync -av --ignore-existing --progress -- "$i" . |
@@ -72,7 +73,7 @@ cmd paste &{{
             move) mv -n -- "$i" .;;
         esac
     done
-    lf -remote "send load"
+    rm ~/.local/share/lf/files
     lf -remote "send clear"
 }}
 
@@ -114,7 +115,7 @@ cmd extract ${{
 }}
 
 # compress current file or selected files with tar and gunzip
-cmd tar ${{
+cmd targz ${{
     set -f
     mkdir $1
     cp -r $fx $1
@@ -166,6 +167,9 @@ map <delete> :trash; reload
 map D :trash; reload
 map f push :search<enter>**<left>
 map F push :search-back<enter>**<left>
+
+map p paste-async
+map P paste
 
 # cd aliases
 map gc cd ~/.config
