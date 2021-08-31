@@ -51,7 +51,7 @@ cmd encrypt-armored !{{
 
 cmd mkdir %set -f; printf "Dir name: "; read ans; mkdir -p "$ans"
 
-cmd touch %set -f; printf "File name: "; read ans; $EDITOR "$ans"
+cmd touch $set -f; printf "File name: "; read ans; $EDITOR "$ans"
 
 
 # progress in paste command
