@@ -1,6 +1,7 @@
 # required starship 0.45.0 or newer
 
 add_newline = true
+command_timeout = 1000
 
 [character]
 success_symbol = "[❯](bold green)"
