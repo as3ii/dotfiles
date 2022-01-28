@@ -182,7 +182,9 @@ map gs cd ~/.script
 map gt cd ~/.local/share/Trash
 map gpi cd ~/Pictures
 map gpr cd ~/prog
+map gr cd ~/repos
 map gu cd ~/UNI
 map gm $lf -remote "send $id cd /run/media/$USER"
 map gn cd /mnt
+map gw cd /mnt/veracrypt1/work
 
