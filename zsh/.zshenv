@@ -61,3 +61,12 @@ export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
 export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
 export XINITRC="$XDG_CONFIG_HOME"/xinitrc
 export HISTFILE="${XDG_CACHE_HOME}/bash_history"
+
+# export ssh agent env vars
+if [ -n "$DESKTOP_SESSION" ];then
+    eval $(gnome-keyring-daemon --start)
+    export SSH_AUTH_SOCK
+fi
+
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+
