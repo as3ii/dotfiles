@@ -155,7 +155,7 @@ bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
 bspc rule -a "Non-Mixer" desktop=$ws8
 bspc rule -a $TERMINALC:"htop" desktop=$ws9
 bspc rule -a $TERMINALC:"nmon" desktop=$ws9
-bspc rule -a "Keybase" desktop=$ws10
+bspc rule -a $TERMINALC:"btop" desktop=$ws10
 # bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
 
 # late start programs
@@ -171,6 +171,7 @@ reload "nice -n 10 telegram-desktop"
 #run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
+run "$TERMINAL --class btop -e btop"
 run "syncthing -no-browser -logflags=3 \
     -logfile=${XDG_DATA_HOME:-HOME/.local/share}/syncthing.log"
 pgrep -x "thunderbird" >/dev/null || nice -n 10 thunderbird &
