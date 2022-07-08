@@ -78,7 +78,7 @@ sleepuntil() {
 # aliases
 alias grep="grep --color=auto"
 alias ip="ip -c"
-alias tree="exa --tree --level=3"
+alias tree="exa --tree --level=4"
 alias ls="exa --classify"
 alias ll="exa --classify --group --long --header --git"
 alias la="exa --classify --all"
@@ -94,6 +94,7 @@ alias gitd="git diff"
 alias gitc="git commit -S"
 alias gita="git add"
 alias gitp="git push"
+alias gitg="setsid gitg &"
 alias mount_win="sudo mount /dev/nvme0n1p5 /mnt/win"
 alias open="xdg-open"
 alias scrub_start="sudo btrfs scrub start /"
@@ -101,6 +102,7 @@ alias scrub_stat="sudo btrfs scrub status /"
 alias defrag="sudo btrfs filesystem defragment -rf -czstd /"
 alias format="clang-format --style=\"{BasedOnStyle: llvm, IndentWidth: 4}\" -i *.cpp *.h *.cc *.c"
 alias ssh="TERM=xterm-256color ssh"
+alias ssh-nohost="ssh -o 'UserKnownHostsFile=/dev/null'"
 alias docker="podman"
 alias docker-compose="podman-compose"
 alias clippy="cargo clean; cargo fmt --all; cargo clippy -- -W clippy::pedantic"
@@ -129,3 +131,27 @@ eval $(thefuck --alias)
 alias f="fuck"
 
 eval $(starship init zsh)
+
+# SSH agent
+env=~/.ssh/agent.env
+
+agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+
+agent_start () {
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ; }
+
+agent_load_env
+
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+    agent_start
+    ssh-add ~/.ssh/id_rsa-debertolis_lorenzo
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+    ssh-add ~/.ssh/id_rsa-debertolis_lorenzo
+fi
+
+unset env
+

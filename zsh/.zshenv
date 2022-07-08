@@ -1,3 +1,8 @@
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
 export EDITOR="nvim"
 export READER="zathura"
 export VISUAL="nvim"
@@ -16,7 +21,7 @@ export ALSA_MASTER_MIXER="$(
     amixer scontrols | sed "s/^.* '//;s/',[0-9]$//;/.*[Mm]ic.*/d;q"
     )"  # used by my personal polybar
 
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:/var/lib/flatpak/exports/bin"
 
 # color in less
 export LESS=-R
@@ -40,11 +45,7 @@ export MOZ_X11_EGL=1
 export CM_SELECTIONS="clipboard"
 export CM_MAX_CLIPS=10
 
-# ~/ Clean-up
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
-
+# $HOME Clean-up
 #export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 #export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
 export GTK2_RC_FILES=/usr/share/themes/Default/gtk-2.0-key/gtkrc
@@ -61,6 +62,8 @@ export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
 export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
 export XINITRC="$XDG_CONFIG_HOME"/xinitrc
 export HISTFILE="${XDG_CACHE_HOME}/bash_history"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
 
 # export ssh agent env vars
 if [ -n "$DESKTOP_SESSION" ];then
