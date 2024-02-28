@@ -1,7 +1,7 @@
 # basic settings
 set preview true
 set previewer ~/.script/preview
-set hidden false
+set hidden true
 set drawbox true
 set icons true
 set ignorecase true
@@ -183,7 +183,7 @@ map gt cd ~/.local/share/Trash
 map gpi cd ~/Pictures
 map gpr cd ~/prog
 map gr cd ~/repos
-map gu cd ~/UNI
+map gu cd /mnt/archive/UniBO/
 map gm $lf -remote "send $id cd /run/media/$USER"
 map gn cd /mnt
 map gw cd /mnt/veracrypt1/work

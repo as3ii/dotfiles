@@ -22,6 +22,7 @@ reload() {
     nohup sh -c "$1" >/dev/null 2>&1 &
 }
 
+BAT=$(cat /sys/class/power_supply/ADP1/online)  # 0 = false, 1 = true
 
 ws1="I"
 ws2="II"
@@ -71,6 +72,7 @@ if xrandr -q | grep -qi "$monitor_hdmi connected"; then
     bspc monitor $monitor_laptop -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
     bspc monitor $monitor_hdmi -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 else
+    xrandr --output $monitor_hdmi --off
     xrandr --output $monitor_laptop --auto --primary
     bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
 fi
@@ -78,7 +80,8 @@ fi
 
 ### early start programs ###
 reload "nice -n 5 sxhkd"                                        # keybindings
-if grep -q "1" /sys/class/power_supply/ADP*/online; then
+reload "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+if [ "$BAT" -eq 1 ]; then
     reload "nice -n 20 picom --daemon --experimental-backends"
 else
     pkill -fx "picom --daemon --experimental-backends"
@@ -98,10 +101,9 @@ run "nice -n 5 espanso daemon"
 ### server audio
 while true; do
     sleep 5
-    pgrep -x "qjackctl" >/dev/null || ( \
-        qjackctl
-        sudo chrt -fap 70 "$(pidof qjackctl)"
-        #sudo chrt -fap 70 "$(pidof qjackctl)"
+    pgrep -x "qpwgraph" >/dev/null || ( \
+        qpwgraph -m
+        sudo chrt -fap 70 "$(pidof qpwgraph)"
     )
 done &
 #while true; do
@@ -111,7 +113,6 @@ done &
         sudo chrt -fap 88 "$(pidof pipewire-pulse)"
         sudo chrt -fap 87 "$(pidof pipewire-media-session)"
         #non-mixer /home/as3ii/.config/ntk/mixer >/dev/null
-        #sudo chrt -fap 80 "$(pidof non-mixer)"
         #sudo chrt -fap 80 "$(pidof non-mixer)"
     #)
 #done &
@@ -143,6 +144,7 @@ pgrep -x "solaar" >/dev/null || nice -n 20 solaar -w hide >/dev/null 2>&1 &    #
 # keyboard settings
 setxkbmap en altgr-intl
 numlockx on
+libinput-gestures-setup restart
 
 # default workspace # xprop -> WM_CLASS(string) -> second argument
 bspc rule -r "*"
@@ -150,13 +152,17 @@ bspc rule -a "firefox" desktop=$ws3
 bspc rule -a "TelegramDesktop" desktop=$ws4
 bspc rule -a "qBittorrent" desktop=$ws6
 bspc rule -a "KVIrc" desktop=$ws6
-bspc rule -a "Thunderbird" desktop=$ws7
+bspc rule -a "thunderbird" desktop=$ws7
 bspc rule -a $TERMINALC:"alsamixer" desktop=$ws8
 bspc rule -a "Non-Mixer" desktop=$ws8
-bspc rule -a $TERMINALC:"htop" desktop=$ws9
-bspc rule -a $TERMINALC:"nmon" desktop=$ws9
-bspc rule -a $TERMINALC:"btop" desktop=$ws10
-# bspc rule -a $TERMINALC:"ncmpcpp" desktop=$ws10
+bspc rule -a "htop" desktop=$ws9
+bspc rule -a "nmon" desktop=$ws9
+bspc rule -a "btop" desktop=$ws10
+bspc rule -a "dropdown1" sticky=on state=floating # scratchpad
+bspc rule -a "dropdown2" sticky=on state=floating # scratchpad
+
+bspc rule -a "steam_app_1182480" state=floating # battlefield 4 origin
+bspc rule -a "steam_app_377160" state=fullscreen # fallout 4
 
 # late start programs
 killall -q polybar
@@ -166,16 +172,15 @@ if xrandr -q | grep -qi "$monitor_hdmi connected"; then
     MONITOR=$monitor_hdmi ALSA_CARD=$ALSA_CARD ALSA_MASTER_MIXER=$ALSA_MASTER_MIXER \
         nice -n 5 polybar --reload secondary &
 fi
-pgrep -x "firefox" >/dev/null || nice -n 5 apulse firefox &
+#pgrep -x "firefox" >/dev/null || nice -n 5 firefox &
 reload "nice -n 10 telegram-desktop"
 #run "$TERMINAL --class alsamixer -e alsamixer"
 run "$TERMINAL --class htop -e htop"
 run "$TERMINAL --class nmon -e nmon"
 run "$TERMINAL --class btop -e btop"
-run "syncthing -no-browser -logflags=3 \
+[ "$BAT" -eq 1 ] &&  run "syncthing -no-browser -logflags=3 \
     -logfile=${XDG_DATA_HOME:-HOME/.local/share}/syncthing.log"
 pgrep -x "thunderbird" >/dev/null || nice -n 10 thunderbird &
-# pgrep -x "keybase" >/dev/null || run_keybase -a &
 # pgrep -x "ncmpcpp" >/dev/null || $TERMINAL --class ncmpcpp -e sh -c 'ncmpcpp -q' &
 # run "kvirc"
 

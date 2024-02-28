@@ -1,7 +1,7 @@
 # required starship 0.45.0 or newer
 
 add_newline = true
-command_timeout = 1000
+command_timeout = 1500
 
 [character]
 success_symbol = "[❯](bold green)"
@@ -20,9 +20,9 @@ truncation_symbol = "…/"
 
 
 [battery]
-full_symbol = " "
-charging_symbol = " "
-discharging_symbol = " "
+full_symbol = "󱊣 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󱊢 "
 disabled = false
 
 [[battery.display]]

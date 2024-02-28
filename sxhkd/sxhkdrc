@@ -68,6 +68,13 @@ super + shift + t
 super + Return
     alacritty
 
+# open scratchpad
+super + u
+    ~/.script/scratch dropdown1
+# open scratchpad 2
+super + i
+    ~/.script/scratch dropdown2
+
 # open dmenu
 super + d
     prog="$(dmenu_path | dmenu -i -fn 'Monospace 10')"; setsid sh -c "$prog" &
